@@ -10,14 +10,14 @@ Get familiar with the Arduino IDE and the Artemis board, blink the LED, read/wri
 
 ## 1. Download and Install the Arduino IDE
 I had the Arduino IDE installed before and updated to 1.8.19 version.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/gh-pages/lab1/Arduino_IDE.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/1/Arduino_IDE.jpg)
 
 ## 2. Hook the Artemis board up to a computer
 Before plug into to my PC, I noticed this board is running in +3.3V, but the USB output voltage is +5V. This concern solved by located board [Eagle Files](https://cdn.sparkfun.com/assets/f/e/c/9/c/RedBoardArtemisNano.zip), the below picture shows there is a power source selector on the board, both USB and battery input are fed to VIN, and VIN connects to a 3.3V regulator to provide correct voltage to the Artemis Nano board.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/gh-pages/lab1/power.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/1/power.jpg)
 
 When I plug the Artemis Nano board, the operating system does not recognize this hardware, by looking up the [Hookup Guide](https://learn.sparkfun.com/tutorials/hookup-guide-for-the-sparkfun-redboard-artemis-nano?_ga=2.157583226.1568895310.1643606097-567105487.1643313494), I found the [CH340 Drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers). After installing the required drivers, the Arduino IDE is able to detect the correct COM ports.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/gh-pages/lab1/USB-SERIAL.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/1/USB-SERIAL.jpg)
 
 ## 3. Blink it Up!
 This part is pretty easy, just load the sample code and upload to the Artemis Nano board. I use baud rate **460800**. Below video shows the internal blue LED flashing in 0.5Hz.
