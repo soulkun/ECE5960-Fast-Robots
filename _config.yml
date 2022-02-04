@@ -7,7 +7,7 @@ title:            Fast Robots
 tagline:          'A Culminating Design Experience (CDE) Course'
 description:      'ECE 5960 - Spring 2022'
 url:              https://github.com/soulkun/ECE5960-Fast-Robots
-baseurl:          '/hydeout'
+baseurl:          '/ECE5960-Fast-Robots'
                   # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
                   # If you want to move just the blog index pages but keep
