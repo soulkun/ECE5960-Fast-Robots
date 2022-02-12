@@ -24,7 +24,7 @@ This part is pretty easy, just load the sample code and upload to the Artemis Na
 Click **[here](http://www.youtube-nocookie.com/embed/njwVnxOrFAU)** if the video does not show.
 
 <div class="video-container">
-  <iframe src="https://drive.google.com/file/d/1JyVK6KtbUkyhslOQF-QxYbEyaL_rklOT/preview" frameborder="0" allow="autoplay;" allowfullscreen></iframe>
+  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/njwVnxOrFAU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## 4. Serial
@@ -32,7 +32,7 @@ Simple as the previous, load the sample code and upload to the board. Need to be
 Click **[here](http://www.youtube-nocookie.com/embed/CPWnKTZDggU)** if the video does not show.
 
 <div class="video-container">
-  <iframe src="https://drive.google.com/file/d/1gzs0VLMS5qfgiGrB_qTPKKxNScrg6dm0/preview" frameborder="0" allow="autoplay;" allowfullscreen></iframe>
+  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/CPWnKTZDggU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## 5. Analog Read
@@ -51,7 +51,7 @@ Open the serial monitor, we can see temp, VCC and VSS data updates in millisecon
 Click **[here](http://www.youtube-nocookie.com/embed/WPtpbuohPgc)** if the video does not show.
 
 <div class="video-container">
-  <iframe src="https://drive.google.com/file/d/1PfVTYP4MTdtxN386783aZ-TpOAj7hRDu/preview" frameborder="0" allow="autoplay;" allowfullscreen></iframe>
+  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/WPtpbuohPgc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
   
 ## 6. Microphone Output
@@ -61,7 +61,7 @@ To test, I use my iPhone app to generate serval different frequencies, and final
 Click **[here](http://www.youtube-nocookie.com/embed/88ZAxnkcrFo)** if the video does not show.
 
 <div class="video-container">
-  <iframe src="https://drive.google.com/file/d/1QP7SsSOZej185_FSLKAn_K5JZZSIg8af/preview" frameborder="0" allow="autoplay;" allowfullscreen></iframe>
+  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/88ZAxnkcrFo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## 7. Additional Task
@@ -100,5 +100,5 @@ else
 
 Click **[here](http://www.youtube-nocookie.com/embed/I5yo20A9p-E)** if the video does not show.
 <div class="video-container">
-  <iframe src="https://drive.google.com/file/d/1wuJCoYJhIgRT3N3V1w7emsqw3e44YJsN/preview" frameborder="0" allow="autoplay;" allowfullscreen></iframe>
+  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/I5yo20A9p-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
