@@ -15,13 +15,13 @@ At first, I am running the Windows 7 SP1 with Python 3.8 (this is the latest sup
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/3.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/4.jpg)
 
-Successfully started the jupyter lab on local address 127.0.0.1 on port 8888.
+Successfully started the jupyter lab on local address **`127.0.0.1`** on port **`8888`**.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/5.jpg)
 
-However, when I try to go through the first code block in the the demo.ipynb, it gives me an error said "Only Windows 10 is supported."
+However, when I try to go through the first code block in the the demo.ipynb, it gives me an error said **"Only Windows 10 is supported."**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/6.jpg)
 
-So second, I installed Windows 10 on the VmWare Workstation and go over again the environment setup part inside the virtual machine. This time the first code block passed. And I powered on Artemis Nano board, upload the ble_arduino code and successfully get the bluetooth MAC address. The MAC address is C0:07:E0:8D:9A:44. But the virtual machine cannot detect the Artemis Nano board, even I passed Intel bluetooth hardware to the VmWare.
+So second, I installed Windows 10 on the VmWare Workstation and go over again the environment setup part inside the virtual machine. This time the first code block passed. And I powered on Artemis Nano board, upload the ble_arduino code and successfully get the bluetooth MAC address. The MAC address is **`C0:07:E0:8D:9A:44`**. But the virtual machine cannot detect the Artemis Nano board, even I passed Intel bluetooth hardware to the VmWare.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/7.jpg)
 
 At this point, I did multiple research and look up through the internet, using the external bluetooth adapter; also contacted on of the TA via Zoom meeting, but nothing help.
@@ -30,49 +30,48 @@ As shown below, it can detected the Artemis board and connect it.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/8.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/9.jpg)
 
-## 2. Hook the Artemis board up to a computer
-Before plug into to my PC, I noticed this board is running in +3.3V, but the USB output voltage is +5V. This concern solved by located board [Eagle Files](https://cdn.sparkfun.com/assets/f/e/c/9/c/RedBoardArtemisNano.zip), the below picture shows there is a power source selector on the board, both USB and battery input are fed to VIN, and VIN connects to a 3.3V regulator to provide correct voltage to the Artemis Nano board.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/1/power.jpg)
+## 2. Receive data from the Artemis board
+Running this part code, my laptop can receive float and string from the Artemis board via bluetooth.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/10.jpg)
 
-When I plug the Artemis Nano board, the operating system does not recognize this hardware, by looking up the [Hookup Guide](https://learn.sparkfun.com/tutorials/hookup-guide-for-the-sparkfun-redboard-artemis-nano?_ga=2.157583226.1568895310.1643606097-567105487.1643313494), I found the [CH340 Drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers). After installing the required drivers, the Arduino IDE is able to detect the correct COM ports.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/1/USB-SERIAL.jpg)
 
-## 3. Blink it Up!
-This part is pretty easy, just load the sample code and upload to the Artemis Nano board. I use baud rate **460800**. Below video shows the internal blue LED flashing in 0.5Hz.
-Click **[here](http://www.youtube-nocookie.com/embed/njwVnxOrFAU)** if the video does not show.
+## 3. Send a command to the Artemis board
+When send a **`PING`** command to the Artemis board, then use receive_string to capture return, gets a **`PONG`** string.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/11.jpg)
 
-<div class="video-container">
-  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/njwVnxOrFAU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+Send two integer to the Artemis board, the serial monitor on my PC can capture them.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/12.jpg)
 
-## 4. Serial
-Simple as the previous, load the sample code and upload to the board. Need to be careful set the baud rate to **115200**. Once upload to the board, use **`Tools-->Serial Monitor`** to send and view messages.
-Click **[here](http://www.youtube-nocookie.com/embed/CPWnKTZDggU)** if the video does not show.
 
-<div class="video-container">
-  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/CPWnKTZDggU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## 4. Disconnect
+As my laptop send a disconnect request, both my side and the Artemis board send out a message notification, shows successfully disconnected.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/13.jpg)
 
-## 5. Analog Read
-This example shows how to read analog data. First, load the example file, on my Arduino IDE, it locates at **`Files-->Examples-->Example02_AnalogRead`**. Then choose it and upload to the board. On line #56, 57 and 58 shows how to retrieve analog data;
+## 5. ECHO
+First modify the Arduino code by learn from "PING-PONG" part.
 {% highlight c linenos %}
-int vcc_3 = analogReadVCCDiv3();    // reads VCC across a 1/3 voltage divider
-int vss = analogReadVSS();          // ideally 0
-int temp_raw = analogReadTemp();    // raw ADC counts from die temperature sensor
+case ECHO:
+
+    char char_arr[MAX_MSG_SIZE];
+
+    // Extract the next value from the command string as a character array
+    success = robot_cmd.get_next_value(char_arr);
+    if (!success)
+        return;
+
+    tx_estring_value.clear();
+    tx_estring_value.append("ECHO: ");
+    tx_estring_value.append(char_arr);
+    tx_characteristic_string.writeValue(tx_estring_value.c_str());
+    Serial.println(tx_estring_value.c_str());
+
+    break;
 {% endhighlight %}
 
-on line #60, the code shows "computed die temperature in deg F".
-{% highlight c linenos %}
-float temp_f = getTempDegF();       // computed die temperature in deg F
-{% endhighlight %}
-Open the serial monitor, we can see temp, VCC and VSS data updates in millisecond. To test it, I put mu thumb onto the board to makes it warm, and the temp value jumps from **33872 to 34232**.
-Click **[here](http://www.youtube-nocookie.com/embed/WPtpbuohPgc)** if the video does not show.
+Then in the jupyter notebook, use CMD.ECHO to test, successfully get the echo back!
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/ECHO_back.jpg)
 
-<div class="video-container">
-  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/WPtpbuohPgc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-  
-## 6. Microphone Output
+## 6. SEND_THREE_FLOATS
 In this example, load the example file located at **`File-->Examples-->PDM-->Example1_MicrophoneOutput`** then upload to the board. The Artemis Nano board is using a Pluse-Density Modulation microphone. Open the serial monitor, it continuously shows the loudest frequency currently captured. One thing I noticed, when my environment is silent, the serial monitor shows the loudest frequency is around **20015 Hz**...
 
 To test, I use my iPhone app to generate serval different frequencies, and finally I use my PC to generate a 16kHz sound, it seems this PDM microphone is pretty precise.
