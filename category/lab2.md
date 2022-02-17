@@ -106,41 +106,5 @@ case SEND_THREE_FLOATS:
 In the jupyter notebook side, send one negative float and two positive floats, successfully get all them back!
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/Three_floats_back.jpg)
 
-## 7. Additional Task
-Here is my solution for this special task. First, I need to light up the LED, so inside the setup function, I add the following.
-
-{% highlight c linenos %}
-pinMode(LED_BUILTIN, OUTPUT);
-{% endhighlight %}
-
-Second, I need to determine when to turn on the LED and turn it off. By testing multiple times, I found out the whistle sound is around **2000~3000 Hz**. Then I goes into printLoudest function, and at the end of this function, I add a return statement inorder to return the current frequency.
-
-{% highlight c linenos %}
-return ui32LoudestFrequency;
-{% endhighlight %}
-
-Also, I need to modify the function definition to specify the type of my return value.
-
-{% highlight c linenos %}
-uint32_t printLoudest(void)
-{% endhighlight %}
-
-In the loop function, I use a variable called freq to save the current frequency value that returns from the printLoudest.
-
-{% highlight c linenos %}
-uint32_t freq = printLoudest();
-{% endhighlight %}
-
-Finally, use the if-else statement to see if the current frequency is between **2000~3000 Hz**, turn on the LED if so, otherwise turn it off.
-
-{% highlight c linenos %}
-if(freq >= 2000 && freq <= 3000)
-  digitalWrite(LED_BUILTIN, HIGH);
-else
-  digitalWrite(LED_BUILTIN, LOW);
-{% endhighlight %}
-
-Click **[here](http://www.youtube-nocookie.com/embed/I5yo20A9p-E)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/I5yo20A9p-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## 7. Difference between float recieving methods
+Both of methods does the same job, receive a float number from the Artemis via the bluetooth and represent it on the screen, and both of them are reading byte array. However, in C programming language, float uses 4 bytes fixed size, while string using **number_of_char+1** size (total chars plus one string terminator \0), which size is vary. Since on Arduino side we are using Estring, which is based on C string. If the float we try to sending over is extremely large, this could cause buffer overflow and data corrupt on the receiver side. Thus, use receive_float may be a wise choice.
