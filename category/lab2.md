@@ -72,14 +72,39 @@ Then in the jupyter notebook, use CMD.ECHO to test, successfully get the echo ba
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/ECHO_back.jpg)
 
 ## 6. SEND_THREE_FLOATS
-In this example, load the example file located at **`File-->Examples-->PDM-->Example1_MicrophoneOutput`** then upload to the board. The Artemis Nano board is using a Pluse-Density Modulation microphone. Open the serial monitor, it continuously shows the loudest frequency currently captured. One thing I noticed, when my environment is silent, the serial monitor shows the loudest frequency is around **20015 Hz**...
+First modify the Arduino code by learn from "SEND_TWO_INTS" part.
+{% highlight c linenos %}
+case SEND_THREE_FLOATS:
+    /*
+      * Your code goes here.
+      */
+    float flt_a, flt_b, flt_c;
+    // Extract the next value from the command string as an float
+    success = robot_cmd.get_next_value(flt_a);
+    if (!success)
+        return;
 
-To test, I use my iPhone app to generate serval different frequencies, and finally I use my PC to generate a 16kHz sound, it seems this PDM microphone is pretty precise.
-Click **[here](http://www.youtube-nocookie.com/embed/88ZAxnkcrFo)** if the video does not show.
+    // Extract the next value from the command string as an float
+    success = robot_cmd.get_next_value(flt_b);
+    if (!success)
+        return;
 
-<div class="video-container">
-  <iframe width="640" height="360" src="http://www.youtube-nocookie.com/embed/88ZAxnkcrFo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+    // Extract the next value from the command string as an float
+    success = robot_cmd.get_next_value(flt_c);
+    if (!success)
+        return;
+
+    Serial.print("Three Floats: ");
+    Serial.print(flt_a);
+    Serial.print(", ");
+    Serial.print(flt_b);
+    Serial.print(", ");
+    Serial.println(flt_c);
+    break;
+{% endhighlight %}
+
+In the jupyter notebook side, send one negative float and two positive floats, successfully get all them back!
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/Three_floats_back.jpg)
 
 ## 7. Additional Task
 Here is my solution for this special task. First, I need to light up the LED, so inside the setup function, I add the following.
