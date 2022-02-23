@@ -206,6 +206,7 @@ When I move the IMU suddenly to one direction, the gyroscope generates a pulse-l
 
 ### Accelerometer
 1. 
+Use atan2 and M_PI to convert accelerometer data into pitch and roll.
 {% highlight c linenos %}
 float pitch = 180 * atan2(sensor->accX(), sensor->accZ()) / M_PI;
 float roll = 180 * atan2(sensor->accY(), sensor->accZ()) / M_PI;
@@ -217,10 +218,14 @@ printFormattedFloat(roll, 3, 2);
 SERIAL_PORT.print("°");
 SERIAL_PORT.println();
 {% endhighlight %}
+
+I put the IMU on my desk and hold it on my side of desk to measure {09, 0, 90} cases.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/23.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/24.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/25.jpg)
 
+Here are the results I get.
+The maximum error is 90°- 88.33° = 1.67°, which is acceptable.
 |       |  -90  |   0   |   +90  |
 |-------|:-----:|:-----:|:------:|
 | Pitch | 88.33 |  0.32 | -88.79 |
