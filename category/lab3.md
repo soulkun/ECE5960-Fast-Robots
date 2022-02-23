@@ -157,11 +157,11 @@ Below are the data we captured. It seems the Short mode stop working when we go 
 Later I found this table from the **[VL53L1X Datasheet](https://www.pololu.com/file/0J1506/vl53l1x.pdf)** talking about ambient light parameter. We redo the test and found out there is no significant difference between dark and bright environments. Different color surface makes very tiny impact. But the sensor is sensitive to different materials, since they deflects light differently.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/16.jpg)
 
-Based on this experiment, I would use the short distance mode, gives me high accuracy and .
+Based on this experiment, I would use the short distance mode since it gives me high accuracy.
+
 ## 3. Additional tasks
 1. 
 Ultrasonic distance sensor emits high-frequency sound waves towards the target object and receives the reflects back, using the time differences to calculate the distance. They are not affected by object colors or ambient lights, but the low resolution, slow refresh rate, and limited working distances would be a pain, and they are not suitable for fast-moving objects.
-
 LiDAR measures the range of targets through light waves from a laser, instead sound waves. This type sensors have high accuracy no matter it's in extremely dark or bright environments, also has the higest refresh rate for fast-moving objects. But they are expensive cost and since it emitting laser, can damage human eyes.
 
 2. 
