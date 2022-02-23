@@ -169,11 +169,12 @@ Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.s
 20, 33, 50, 100 (default), 200, 500. The 20ms is only available in short distance mode. On the other hand, the setIntermeasurementPeriod() allows to change the time alotted for a measurement, default is 100ms.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
-
+3. 
 The goal is to get high sampling rate, avoid **`Signal`** Fail event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
 {% highlight c linenos %}
+distanceSensor.setDistanceModeShort();
 distanceSensor.setTimingBudgetInMs(20);
-distanceSensor.setIntermeasurementPeriod(50); 
+distanceSensor.setIntermeasurementPeriod(50);
 {% endhighlight %}
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/18.jpg)
 
