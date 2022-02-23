@@ -205,5 +205,23 @@ When I move the IMU suddenly to one direction, the gyroscope generates a pulse-l
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/22.jpg)
 
 ### Accelerometer
+1. 
+{% highlight c linenos %}
+float pitch = 180 * atan2(sensor->accX(), sensor->accZ()) / M_PI;
+float roll = 180 * atan2(sensor->accY(), sensor->accZ()) / M_PI;
+
+SERIAL_PORT.print("Pitch: ");
+printFormattedFloat(pitch, 3, 2);
+SERIAL_PORT.print("°    Roll: ");
+printFormattedFloat(roll, 3, 2);
+SERIAL_PORT.print("°");
+SERIAL_PORT.println();
+{% endhighlight %}
+
+
+|       |  -90° |   0°  |   +90° |
+|-------|:-----:|:-----:|:------:|
+| Pitch | 88.33° |  0.32° | -88.79° |
+| Roll  | 89.25° | -0.24° | -88.50° |
 ### Gyroscope
 ## 5. Additional tasks
