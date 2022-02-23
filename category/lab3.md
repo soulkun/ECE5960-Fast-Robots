@@ -24,28 +24,27 @@ On the Artemis Nano board side, I soldered a blue **[Amphenol 76382-307LF](https
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/5.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/6.jpg)
 
-The whole thing looks like this.
+All in one.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/7.jpg)
 
+## 2. Time of Flight Sensors
+#### Only one ToF
+Based on the following connection setup.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/8.jpg)
 
-Successfully started the jupyter lab on local address **`127.0.0.1`** on port **`8888`**.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/5.jpg)
+Uploaded Example05_Wire_I2C, got ToF I2C address **`0x29`**.
+This is what I expected, since the **[Pololu VL53L1X Description](https://www.pololu.com/product/3415)** states 
+> "The sensor’s 7-bit slave address defaults to **`0101001b`** on power-up."
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/9.jpg)
 
-However, when I try to go through the first code block in the the demo.ipynb, it gives me an error said **"Only Windows 10 is supported."**
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/6.jpg)
+After testing three distance modes, I found out it really depends on the ambient light setting.
+The short-distance mode works well under dark and bright light environments.
+The medium and long-distance modes under the bright environment have incorrect readings when the testing distance is over 90cm, but they work well under the dark environments.
+Based on this test, I would choose the short distance mode, considering ToF may face bright snow, bright sun, dark shadows.
 
-So second, I installed Windows 10 on the VmWare Workstation and go over again the environment setup part inside the virtual machine. This time the first code block passed. And I powered on Artemis Nano board, upload the ble_arduino code and successfully get the bluetooth MAC address. The MAC address is **`C0:07:E0:8D:9A:44`**. But the virtual machine cannot detect the Artemis Nano board, even I passed Intel bluetooth hardware to the VmWare.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/7.jpg)
-
-At this point, I did multiple research and look up through the internet, using the external bluetooth adapter; also contacted on of the TA via Zoom meeting, but nothing help.
-Finally, on the next day I install the Windows 10 natively on my laptop hard drive and re-build the virtual environment.
-As shown below, it can detected the Artemis board and connect it.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/8.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/2/9.jpg)
-
-## 2. 
-
-
+#### Two ToFs
+Based on the following connection setup.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/10.jpg)
 ## 3. 
 
 
