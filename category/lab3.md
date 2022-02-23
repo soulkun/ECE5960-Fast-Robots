@@ -190,7 +190,7 @@ First, here is the wiring setup.
 Second, I flashed **`Example05_Wire_I2C.ino`** first to detect IMU address, and I got **`0x68`**.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/20.jpg)
 
-Third, open the **`..\Arduino\libraries\SparkFun_ICM-20948\SparkFun_ICM-20948_ArduinoLibrary-master\examples\Arduino\Example1_Basics`**. 
+Third, open the \Arduino\libraries\SparkFun_ICM-20948\SparkFun_ICM-20948_ArduinoLibrary-master\examples\Arduino\Example1_Basics. 
 On the line #22, the **`AD0_VAL`** (address value at the zero bit) should be set to **`0`**, since the LSB of 0x68 is zero.
 Also, there is a **`ADDR+1`**jumper on the back side of the IMU, the jumper is closed by default.
 {% highlight c linenos %}
@@ -204,11 +204,6 @@ I discovered when I give a acceleration towards to one of the arrow direction, t
 When I move the IMU suddenly to one direction, the gyroscope generates a pulse-liked curve. It will first goes positive(negative) side then negative(positive) side and finally goes back to zero.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/22.jpg)
 
-## 5.
-
-## 6.
-{% highlight c linenos %}
-
-{% endhighlight %}
-
-## 7. 
+### Accelerometer
+### Gyroscope
+## 5. Additional tasks
