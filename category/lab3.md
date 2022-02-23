@@ -165,6 +165,9 @@ Ultrasonic distance sensor emits high-frequency sound waves towards the target o
 LiDAR measures the range of targets through light waves from a laser, instead sound waves. This type sensors have high accuracy no matter it's in extremely dark or bright environments, also has the higest refresh rate for fast-moving objects. But they are expensive cost and since it emitting laser, can damage human eyes.
 
 2. 
+Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-distance-sensor-vl53l1x-hookup-guide/all), the timing budget is the amount of time over which a measurement is taken. This can be set to any of the following: 
+15, 20, 33, 50, 100 (default), 200, 500
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
 ## 4.
 
