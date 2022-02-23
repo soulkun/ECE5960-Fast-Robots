@@ -167,15 +167,16 @@ LiDAR measures the range of targets through light waves from a laser, instead so
 2. 
 Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-distance-sensor-vl53l1x-hookup-guide/all), the timing budget is the amount of time over which a measurement is taken. This can be set to any of the following: 
 20, 33, 50, 100 (default), 200, 500. The 20ms is only available in short distance mode. On the other hand, the setIntermeasurementPeriod() allows to change the time alotted for a measurement, default is 100ms.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
-The goal is to get high sampling rate, avoid **`Signal`** Fail event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one.
+
+The goal is to get high sampling rate, avoid **`Signal`** Fail event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
 {% highlight c linenos %}
 distanceSensor.setTimingBudgetInMs(20);
 distanceSensor.setIntermeasurementPeriod(50); 
-
 {% endhighlight %}
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/18.jpg)
 
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
 ## 4.
 
