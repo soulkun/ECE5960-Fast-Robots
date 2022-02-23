@@ -122,7 +122,7 @@ Successfully read data from both ToF sensors.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/11.jpg)
 
 ### Distance Mode Experiment
-(This experiment collaborate with Tongqing Zhang (TZ422))
+**Note: This experiment collaborate with Tongqing Zhang (TZ422).**
 
 We set a ruler on the ground, make the 450cm position as the zero point, use a tape to mount two sensors on the back of the laptop screen, one sensor tunes to the short mode and the other one tunes to long mode (setDistanceModeMedium() is not a callable function nor implement in the VL53L1X library according to **[HERE](https://github.com/sparkfun/SparkFun_VL53L1X_Arduino_Library/issues/40)**, thus we disregarded this and only test for short and long). The experiment operation is one person moves the box backward and the other person records the data.
 
@@ -176,10 +176,14 @@ distanceSensor.setDistanceModeShort();
 distanceSensor.setTimingBudgetInMs(20);
 distanceSensor.setIntermeasurementPeriod(50);
 {% endhighlight %}
+
+The range status keeps "Good" while the distance changes rapidly.
+To enlarge this screenshot, right click it and open in a separate window.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/18.jpg)
 
 
-## 4.
+## 4. IMU
+### Setup the IMU
 
 ## 5.
 
