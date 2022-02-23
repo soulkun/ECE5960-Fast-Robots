@@ -217,11 +217,15 @@ printFormattedFloat(roll, 3, 2);
 SERIAL_PORT.print("°");
 SERIAL_PORT.println();
 {% endhighlight %}
-
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/23.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/24.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/25.jpg)
 
 |       |  -90  |   0   |   +90  |
 |-------|:-----:|:-----:|:------:|
 | Pitch | 88.33 |  0.32 | -88.79 |
 | Roll  | 89.25 | -0.24 | -88.50 |
+
+
 ### Gyroscope
 ## 5. Additional tasks
