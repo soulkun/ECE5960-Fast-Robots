@@ -166,11 +166,11 @@ LiDAR measures the range of targets through light waves from a laser, instead so
 
 2. 
 Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-distance-sensor-vl53l1x-hookup-guide/all), the timing budget is the amount of time over which a measurement is taken. This can be set to any of the following: 
-20, 33, 50, 100 (default), 200, 500. The 20ms is only available in short distance mode. On the other hand, the setIntermeasurementPeriod() allows to change the time alotted for a measurement, default is 100ms.
+**`20, 33, 50, 100 (default), 200, 500`**. The 20ms is only available in short distance mode. On the other hand, the setIntermeasurementPeriod() allows to change the time alotted for a measurement, default is 100ms.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
 3. 
-The goal is to get high sampling rate, avoid **`Signal`** Fail event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
+The goal is to get high sampling rate, avoid **`Signal Fail`** event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
 {% highlight c linenos %}
 distanceSensor.setDistanceModeShort();
 distanceSensor.setTimingBudgetInMs(20);
@@ -184,6 +184,25 @@ To enlarge this screenshot, right click it and open in a separate window.
 
 ## 4. IMU
 ### Setup the IMU
+First, here is the wiring setup.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/19.jpg)
+
+Second, I flashed **`Example05_Wire_I2C.ino`** first to detect IMU address, and I got **`0x68`**.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/20.jpg)
+
+Third, open the **`..\Arduino\libraries\SparkFun_ICM-20948\SparkFun_ICM-20948_ArduinoLibrary-master\examples\Arduino\Example1_Basics`**. 
+On the line #22, the **`AD0_VAL`** (address value at the zero bit) should be set to **`0`**, since the LSB of 0x68 is zero.
+Also, there is a **`ADDR+1`**jumper on the back side of the IMU, the jumper is closed by default.
+{% highlight c linenos %}
+#define AD0_VAL 0
+{% endhighlight %}
+
+There is a reference frames sign on the IMU surface.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/21.jpg)
+
+I discovered when I give a acceleration towards to one of the arrow direction, the acceleration on that axis reading is negative.
+When I move the IMU suddenly to one direction, the gyroscope generates a pulse-liked curve. It will first goes positive(negative) side then negative(positive) side and finally goes back to zero.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/22.jpg)
 
 ## 5.
 
