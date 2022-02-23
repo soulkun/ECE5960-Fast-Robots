@@ -38,11 +38,6 @@ This is what I expected, since the **[Pololu VL53L1X Description](https://www.po
 
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/9.jpg)
 
-After testing three distance modes, I found out it really depends on the ambient light setting.
-The short-distance mode works well under dark and bright light environments.
-The medium and long-distance modes under the bright environment have incorrect readings when the testing distance is over 90cm, but they work well under the dark environments.
-Based on this test, I would choose the short distance mode, considering ToF may face bright snow, bright sun, dark shadows.
-
 ### Two ToFs
 Based on the following connection setup.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/10.jpg)
@@ -122,6 +117,47 @@ void loop(void)
   Serial.println();
 }
 {% endhighlight %}
+
+Successfully read data from both ToF sensors.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/11.jpg)
+
+### Distance Mode Experiment
+(This experiment collaborate with Tongqing Zhang (TZ422))
+
+We set a ruler on the ground, make the 450cm position as the zero point, use a tape to mount two sensors on the back of the laptop screen, one sensor tunes to the short mode and the other one tunes to long mode (setDistanceModeMedium() is not a callable function nor implement in the VL53L1X library according to **[HERE](https://github.com/sparkfun/SparkFun_VL53L1X_Arduino_Library/issues/40)**, thus we disregarded this and only test for short and long). The experiment operation is one person moves the box backward and the other person records the data.
+
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/12.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/13.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/14.jpg)
+
+To calibrate the laptop screen angle, make sure it is perpendicular to the ground, in order to avoid offsets when measuring long distances, we use the Bosch GLM 20 laser measure to enforce the actual distance.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/15.jpg)
+
+Below are the data we captured. It seems the Short mode stop working when we go over 240 cm, but based on accuracy, the short mode always stands out. The long mode is inaccurate especially when measure longer distances.
+
+| Physical Distance (cm) | Short Mode (Left ToF) (cm) | Long Mode (Right ToF) (cm) |
+|------------------------|----------------------------|----------------------------|
+|                     20 |                       19.0 | 19.0                       |
+|                     40 |                       39.3 | 38.7                       |
+|                     60 |                       59.4 | 58.6                       |
+|                     80 |                       79.8 | 78.9                       |
+|                    100 |                      100.0 | 98.7                       |
+|                    120 |                      119.7 | 118.4                      |
+|                    140 |                      139.6 | 137.9                      |
+|                    160 |                      159.2 | 156.7                      |
+|                    180 |                      178.1 | 176.0                      |
+|                    200 |                      197.5 | 194.5                      |
+|                    220 |                      216.4 | 212.0                      |
+|                    240 |                        0.0 | 230.0                      |
+|                    260 |                        0.0 | 247.1                      |
+|                    280 |                        0.0 | 264.9                      |
+|                    300 |                       32.9 | 270.0                      |
+|                    320 |                       19.6 | 291.2                      |
+
+Later I found this table from the **[VL53L1X Datasheet](https://www.pololu.com/file/0J1506/vl53l1x.pdf)** talking about ambient light parameter. We redo the test and found out there is no significant difference between dark and bright environments. Different color surface makes very tiny impact. But the sensor is sensitive to different materials, since they deflects light differently.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/15.jpg)
+
+Based on this experiment, I would use the short distance mode, gives me high accuracy and .
 ## 3. 
 
 
