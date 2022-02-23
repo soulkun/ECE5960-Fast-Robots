@@ -28,13 +28,14 @@ All in one.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/7.jpg)
 
 ## 2. Time of Flight Sensors
-#### Only one ToF
+### Only one ToF
 Based on the following connection setup.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/8.jpg)
 
 Uploaded Example05_Wire_I2C, got ToF I2C address **`0x29`**.
 This is what I expected, since the **[Pololu VL53L1X Description](https://www.pololu.com/product/3415)** states 
 > "The sensor’s 7-bit slave address defaults to **`0101001b`** on power-up."
+
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/9.jpg)
 
 After testing three distance modes, I found out it really depends on the ambient light setting.
@@ -42,9 +43,85 @@ The short-distance mode works well under dark and bright light environments.
 The medium and long-distance modes under the bright environment have incorrect readings when the testing distance is over 90cm, but they work well under the dark environments.
 Based on this test, I would choose the short distance mode, considering ToF may face bright snow, bright sun, dark shadows.
 
-#### Two ToFs
+### Two ToFs
 Based on the following connection setup.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/10.jpg)
+
+First, define XSHUT pins.
+{% highlight c linenos %}
+#define TOF1_SHUTDOWN_PIN 2
+#define TOF2_SHUTDOWN_PIN 3
+{% endhighlight %}
+
+Second, create two ToF objects.
+{% highlight c linenos %}
+SFEVL53L1X TOF1;
+SFEVL53L1X TOF2;
+{% endhighlight %}
+
+Third, in the setup part, set pin mode for both XSHUT pins, and set them to logical low.
+{% highlight c linenos %}
+pinMode(TOF1_SHUTDOWN_PIN, OUTPUT);
+pinMode(TOF2_SHUTDOWN_PIN, OUTPUT);
+digitalWrite(TOF1_SHUTDOWN_PIN, LOW);
+digitalWrite(TOF2_SHUTDOWN_PIN, LOW);
+{% endhighlight %}
+
+Fouth, start up the first ToF sensor with 0x29 I2C address.
+{% highlight c linenos %}
+delay(50);
+digitalWrite(TOF1_SHUTDOWN_PIN, HIGH);
+delay(50);
+
+if (TOF1.begin() != 0) //Begin returns 0 on a good init
+    Serial.println("TOF1 failed to begin. Please check wiring.");
+else
+    TOF1.setI2CAddress(0x29);
+Serial.println("TOF1 online!");
+{% endhighlight %}
+
+Fifth, start up the second ToF sensor with 0x30 I2C address.
+{% highlight c linenos %}
+delay(50);
+digitalWrite(TOF2_SHUTDOWN_PIN, HIGH);
+delay(50);
+
+if (TOF2.begin() != 0) //Begin returns 0 on a good init
+    Serial.println("TOF2 failed to begin. Please check wiring.");
+else
+    TOF2.setI2CAddress(0x30);
+Serial.println("TOF2 online!");
+{% endhighlight %}
+
+Finally, start ranging on both ToF sensors, get distance data and print out both results in centimeters to serial.
+{% highlight c linenos %}
+void loop(void)
+{
+  TOF1.startRanging(); //Write configuration bytes to initiate measurement
+  TOF2.startRanging(); //Write configuration bytes to initiate measurement
+  while (!TOF1.checkForDataReady())
+  {
+    delay(1);
+  }
+  while (!TOF2.checkForDataReady())
+  {
+    delay(1);
+  }
+  int distance1 = TOF1.getDistance(); //Get the result of the measurement from the sensor
+  int distance2 = TOF2.getDistance(); //Get the result of the measurement from the sensor
+  TOF1.clearInterrupt();
+  TOF2.clearInterrupt();
+  TOF1.stopRanging();
+  TOF2.stopRanging();
+
+  Serial.print("Distance(mm): ");
+  Serial.print(distance1);
+  Serial.print(", ");
+  Serial.print(distance2);
+
+  Serial.println();
+}
+{% endhighlight %}
 ## 3. 
 
 
