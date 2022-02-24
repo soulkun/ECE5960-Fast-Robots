@@ -1,283 +1,63 @@
 ---
 layout: category
-title: Lab 3
+title: Lab 4
 ---
 
-# Sensors
+# Characterize your car
 
-## 0. Objective
-The purpose of this lab is to soldering pins and tune ToF / IMU sensors - the faster the robot can sample and the more it can trust a sensor reading, the faster it is able to drive.
+## 1. (A) What are the dimensions of the car?
+18.0cm long
+14.7cm width
+8.0cm height
 
-## 1. Soldering and connections setup
-Consider the long term scalable and easy maintenance, I bought a **[SparkFun Qwiic MultiPort](https://www.sparkfun.com/products/18012)** for make connections between Artemis board to other sensors, and a **[SparkFun Qwiic Cable Kit](https://www.sparkfun.com/products/15081)** used for wiring to sensors.
+This is easy, I use my tape measure to finish this.
 
-Here are the two ToF sensors with right angle male pin header soldered on.
-One will mount at the front of the vehicle, and the other one mount at the side (Vertical mounting).
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/1.jpg)
+## 2. (A) What is the weight?
+519 grams
 
-And here is the IMU with a right angle female socket header soldered on. In this case, the IMU can be placed vertically or horizontally and only need a thin space inside the vehicle.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/2.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/3.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/4.jpg)
+Compare to my laptop, which is 2 kg, the car is really light, to measure the car, first I put my laptop on the scale, and then put the car onto my laptop, calculate the weight differences.
 
-On the Artemis Nano board side, I soldered a blue **[Amphenol 76382-307LF](https://www.digikey.com/en/products/detail/amphenol-icc-fci/76382-307LF/1001597)** male pin header on the side which have the Qwiic port, considered connections between ToF XSHUT pins and future motor controller transmission with the Artemis, totally I need `2 XSHUT + 4 motor control logic = 6 pins`. Also, a **[NKK AS13AP](https://www.digikey.com/en/products/detail/nkk-switches/AS13AP/1014820)** slide switch has been soldered on the PSWC pins, this makes less plugging-unplugging damage on the USB-C port when I debug sensors frequently. (I had an ESP8266 board with the micro-USB socket dead due to the frequent plugging and unplugging, solder pads on that board have been pulled-off and it's hard to fix it and solder a new socket connector...)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/5.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/6.jpg)
+## 3. (A) How long does it take to charge?
+Before doing this experiment, I deeply discharged one of the battery by playing with the car first, then by just power on the car and left it with the LED flashing. I use the USB charging cable that comes with this car, plug into my USB Power Meter then plug them into my PC USB port.
+The meter shows when the battery is in the charging status, 4.88V, 0.25A, 1.2W. Then I setup my GoPro camera to record the charging progress, it takes 2h 11mins to fully charged.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/4/1.jpg)
 
-All in one.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/7.jpg)
+## 4. (A) What is the battery life time?
+This is a LiPo battery with model number "HPV 852540", 650mAh capacity and output 3.7 Volts, I google it try to find any data sheet that states life cycle, unfortunately I found nothing. Based on typical LiPo battery, it should have 300 life cycles. Therefore, I use the stopwatch on my phone to assist me, and keep playing the car until the battery has been dry out. Record shows about 7 mins play time.
 
-## 2. Time of Flight Sensors
-### Only one ToF
-Based on the following connection setup.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/8.jpg)
-
-Uploaded Example05_Wire_I2C, got ToF I2C address **`0x29`**.
-This is what I expected, since the **[Pololu VL53L1X Description](https://www.pololu.com/product/3415)** states 
-> "The sensor’s 7-bit slave address defaults to **`0101001b`** on power-up."
-
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/9.jpg)
-
-### Two ToFs
-Based on the following connection setup.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/10.jpg)
-
-First, define XSHUT pins.
-{% highlight c linenos %}
-#define TOF1_SHUTDOWN_PIN 2
-#define TOF2_SHUTDOWN_PIN 3
-{% endhighlight %}
-
-Second, create two ToF objects.
-{% highlight c linenos %}
-SFEVL53L1X TOF1;
-SFEVL53L1X TOF2;
-{% endhighlight %}
-
-Third, in the setup part, set pin mode for both XSHUT pins, and set them to logical low.
-{% highlight c linenos %}
-pinMode(TOF1_SHUTDOWN_PIN, OUTPUT);
-pinMode(TOF2_SHUTDOWN_PIN, OUTPUT);
-digitalWrite(TOF1_SHUTDOWN_PIN, LOW);
-digitalWrite(TOF2_SHUTDOWN_PIN, LOW);
-{% endhighlight %}
-
-Fouth, start up the first ToF sensor with 0x29 I2C address.
-{% highlight c linenos %}
-delay(50);
-digitalWrite(TOF1_SHUTDOWN_PIN, HIGH);
-delay(50);
-
-if (TOF1.begin() != 0) //Begin returns 0 on a good init
-    Serial.println("TOF1 failed to begin. Please check wiring.");
-else
-    TOF1.setI2CAddress(0x29);
-Serial.println("TOF1 online!");
-{% endhighlight %}
-
-Fifth, start up the second ToF sensor with 0x30 I2C address.
-{% highlight c linenos %}
-delay(50);
-digitalWrite(TOF2_SHUTDOWN_PIN, HIGH);
-delay(50);
-
-if (TOF2.begin() != 0) //Begin returns 0 on a good init
-    Serial.println("TOF2 failed to begin. Please check wiring.");
-else
-    TOF2.setI2CAddress(0x30);
-Serial.println("TOF2 online!");
-{% endhighlight %}
-
-Finally, start ranging on both ToF sensors, get distance data and print out both results in centimeters to serial.
-{% highlight c linenos %}
-void loop(void)
-{
-  TOF1.startRanging(); //Write configuration bytes to initiate measurement
-  TOF2.startRanging(); //Write configuration bytes to initiate measurement
-  while (!TOF1.checkForDataReady())
-  {
-    delay(1);
-  }
-  while (!TOF2.checkForDataReady())
-  {
-    delay(1);
-  }
-  int distance1 = TOF1.getDistance(); //Get the result of the measurement from the sensor
-  int distance2 = TOF2.getDistance(); //Get the result of the measurement from the sensor
-  TOF1.clearInterrupt();
-  TOF2.clearInterrupt();
-  TOF1.stopRanging();
-  TOF2.stopRanging();
-
-  Serial.print("Distance(mm): ");
-  Serial.print(distance1);
-  Serial.print(", ");
-  Serial.print(distance2);
-
-  Serial.println();
-}
-{% endhighlight %}
-
-Successfully read data from both ToF sensors.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/11.jpg)
-
-### Distance Mode Experiment
-**Note: This experiment collaborate with Tongqing Zhang (TZ422).**
-
-We set a ruler on the ground, make the 450cm position as the zero point, use a tape to mount two sensors on the back of the laptop screen, one sensor tunes to the short mode and the other one tunes to long mode (setDistanceModeMedium() is not a callable function nor implement in the VL53L1X library according to **[HERE](https://github.com/sparkfun/SparkFun_VL53L1X_Arduino_Library/issues/40)**, thus we disregarded this and only test for short and long). The experiment operation is one person moves the box backward and the other person records the data.
-
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/12.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/13.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/14.jpg)
-
-To calibrate the laptop screen angle, make sure it is perpendicular to the ground, in order to avoid offsets when measuring long distances, we use the Bosch GLM 20 laser measure to enforce the actual distance.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/15.jpg)
-
-Below are the data we captured. It seems the Short mode stop working when we go over 240 cm, but based on accuracy, the short mode always stands out. The long mode is inaccurate especially when measure longer distances.
-
-| Physical Distance (cm) | Short Mode (Left ToF) (cm) | Long Mode (Right ToF) (cm) |
-|------------------------|----------------------------|----------------------------|
-|                     20 |                       19.0 | 19.0                       |
-|                     40 |                       39.3 | 38.7                       |
-|                     60 |                       59.4 | 58.6                       |
-|                     80 |                       79.8 | 78.9                       |
-|                    100 |                      100.0 | 98.7                       |
-|                    120 |                      119.7 | 118.4                      |
-|                    140 |                      139.6 | 137.9                      |
-|                    160 |                      159.2 | 156.7                      |
-|                    180 |                      178.1 | 176.0                      |
-|                    200 |                      197.5 | 194.5                      |
-|                    220 |                      216.4 | 212.0                      |
-|                    240 |                        0.0 | 230.0                      |
-|                    260 |                        0.0 | 247.1                      |
-|                    280 |                        0.0 | 264.9                      |
-|                    300 |                       32.9 | 270.0                      |
-|                    320 |                       19.6 | 291.2                      |
-
-Later I found this table from the **[VL53L1X Datasheet](https://www.pololu.com/file/0J1506/vl53l1x.pdf)** talking about ambient light parameter. We redo the test and found out there is no significant difference between dark and bright environments. Different color surface makes very tiny impact. But the sensor is sensitive to different materials, since they deflects light differently.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/16.jpg)
-
-Based on this experiment, I would use the short distance mode since it gives me high accuracy.
-
-## 3. Additional tasks
-1. 
-Ultrasonic distance sensor emits high-frequency sound waves towards the target object and receives the reflects back, using the time differences to calculate the distance. They are not affected by object colors or ambient lights, but the low resolution, slow refresh rate, and limited working distances would be a pain, and they are not suitable for fast-moving objects.
-LiDAR measures the range of targets through light waves from a laser, instead sound waves. This type sensors have high accuracy no matter it's in extremely dark or bright environments, also has the higest refresh rate for fast-moving objects. But they are expensive cost and since it emitting laser, can damage human eyes.
-
-2. 
-Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-distance-sensor-vl53l1x-hookup-guide/all), the timing budget is the amount of time over which a measurement is taken. This can be set to any of the following: 
-**`20, 33, 50, 100 (default), 200, 500`**. The 20ms is only available in short distance mode. On the other hand, the setIntermeasurementPeriod() allows to change the time alotted for a measurement, default is 100ms.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
-
-3. 
-The goal is to get high sampling rate, avoid **`Signal Fail`** event, like overclocking CPU. The default settings of measurement period and timing budget have low sampling rate, after serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
-{% highlight c linenos %}
-distanceSensor.setDistanceModeShort();
-distanceSensor.setTimingBudgetInMs(20);
-distanceSensor.setIntermeasurementPeriod(50);
-{% endhighlight %}
-
-The range status keeps "Good" while the distance changes rapidly.
-To enlarge this screenshot, right click it and open in a separate window.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/18.jpg)
+## 5. (B) What stunts can it do? Be sure to note the sequence of commands that corresponds with each stunt.
+### Note: This experiment collaborate with Tongqing Zhang (TZ422) and Vincent Lu (YL929).
+We found one stunt that the car can dancing itself.
+First, hold the left/right key to let the car spinning.
+Second, release the left/right key and at the sametime, hold the up/down key, the car will start dancing.
+Click **[here](https://www.youtube.com/watch?v=s1zcrImvJYE)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://www.youtube.com/watch?v=s1zcrImvJYE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 
-## 4. IMU
-### Setup the IMU
-First, here is the wiring setup.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/19.jpg)
+## 6. (B) How reliably does the robot turn around its own axis?
+The left/right spinning extremely stable.
+Click **[here](https://youtu.be/pYaPH612VEU)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://youtu.be/pYaPH612VEU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+It's hard to keep a straight line forward; however, use the "down arrow" on the remote control to let the car go reversely, it can keep onto a straight line.
 
-Second, I flashed **`Example05_Wire_I2C.ino`** first to detect IMU address, and I got **`0x68`**.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/20.jpg)
+## 7. (B) What is the range of speed? (remember, this is battery dependent). Consider using the TOF sensors to help you measure this.
+### Note: This experiment collaborate with Tongqing Zhang (TZ422) and Vincent Lu (YL929).
+First, we put the Artemis Nano board onto the car and hooked up a ToF sensor at the front of the car. The idea is to use the timing and the distance to calculate the speed and see distance. We test this in a living room.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/4/2.jpg)
+Click **[here](https://youtu.be/9HhGui_mSuE)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://youtu.be/9HhGui_mSuE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+Click **[here](https://youtu.be/p5TXN7i8xps)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://youtu.be/p5TXN7i8xps" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-Third, open the \Arduino\libraries\SparkFun_ICM-20948\SparkFun_ICM-20948_ArduinoLibrary-master\examples\Arduino\Example1_Basics. 
-On the line #22, the **`AD0_VAL`** (address value at the zero bit) should be set to **`0`**, since the LSB of 0x68 is zero.
-Also, there is a **`ADDR+1`**jumper on the back side of the IMU, the jumper is closed by default.
-{% highlight c linenos %}
-#define AD0_VAL 0
-{% endhighlight %}
-
-There is a reference frames sign on the IMU surface.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/21.jpg)
-
-I discovered when I give a acceleration towards to one of the arrow direction, the acceleration on that axis reading is negative.
-When I move the IMU suddenly to one direction, the gyroscope generates a pulse-liked curve. It will first goes positive(negative) side then negative(positive) side and finally goes back to zero. Also, the gyroscopehas no reading when it is idle(no movement), but accelerometer has the reading, since the g-force pulls down.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/22.jpg)
-
-### Accelerometer
-1. 
-Use atan2 and M_PI to convert accelerometer data into pitch and roll.
-{% highlight c linenos %}
-float pitch = 180 * atan2(sensor->accX(), sensor->accZ()) / M_PI;
-float roll = 180 * atan2(sensor->accY(), sensor->accZ()) / M_PI;
-
-SERIAL_PORT.print("Pitch: ");
-printFormattedFloat(pitch, 3, 2);
-SERIAL_PORT.print("°    Roll: ");
-printFormattedFloat(roll, 3, 2);
-SERIAL_PORT.print("°");
-SERIAL_PORT.println();
-{% endhighlight %}
-
-I put the IMU on my desk and hold it on my side of desk to measure {09, 0, 90} cases.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/23.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/24.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/25.jpg)
-
-Here are the results I get.
-|       |  -90  |   0   |   +90  |
-|-------|-------|-------|--------|
-| Pitch | 88.33 |  0.32 | -88.79 |
-| Roll  | 89.25 | -0.24 | -88.50 |
-
-Do the calibration according to my results:
-{% highlight c linenos %}
-float pitch = ((180 * atan2(sensor->accX(), sensor->accZ()) / M_PI) - 88.33)*180 / (-88.79 + 87.18) - 90;
-float roll = ((180 * atan2(sensor->accY(), sensor->accZ()) / M_PI) - 89.25)*180 / (88.50-89.25) - 90;
-{% endhighlight %}
-
-2. Tapping the sensor
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/26.jpg)
-### Gyroscope
-In order to compute pitch, roll and yaw angles, here is the code I use.
-{% highlight c linenos %}
-dt = millis() - last_time;
-last_time = millis();
-
-pitch = 180 * atan2(sensor->accX(), sensor->accZ()) / M_PI;
-roll = 180 * atan2(sensor->accY(), sensor->accZ()) / M_PI;
-pitch_g += pitch*dt/1000;
-roll_g += roll*dt/1000;
-SERIAL_PORT.print("Pitch_g: ");
-printFormattedFloat(pitch_g, 3, 2);
-SERIAL_PORT.print("°\tRoll_g: ");
-printFormattedFloat(roll_g, 3, 2);
-SERIAL_PORT.print("°");
-{% endhighlight %}
-
-Test result chart and plot:
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/27.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/28.jpg)
-
-It's extremely unstable, need a low pass filter. Tried alpha = 0.4, getting better.
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/29.jpg)
-
-Overall I'd trust accelerometer to calculate the pitch, roll and yaw, comparing to the gyroscope it has better accuracy and dependable readings.
-## 5. Additional tasks
-I use the code provided by instructions.
-{% highlight c linenos %}
-float pitch = 180 * atan2(sensor->magX(), sensor->magZ()) / M_PI;
-float roll = 180 * atan2(sensor->magY(), sensor->magZ()) / M_PI;
-float xm = myICM.magX()* cos(pitch) - myICM.magY()* sin(roll)* sin(pitch) + myICM.magZ()* cos(roll)* sin(pitch);
-float ym = myICM.magY()* cos(roll) + myICM.magZ()* sin(roll/180*M_PI);
-float yaw = 180 * atan2(ym, xm)/M_PI;
-{% endhighlight %}
-
-But the result shows it's totally unreliable, I tried in my room, kitchen, but it stills has too much interferences...
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/30.jpg)
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/31.jpg)
-
-Magnetic north: I put my IMU on my desk surface, and first let X axis pointing to magnetic north (red box below), then let it pointing to the magnetic south(green box below).
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/32.jpg)
-
-The IMU reading have 10 degrees offset when I facing the North, and when I facing the South, it gives me roughly 46 or 47 degrees reading. Also, this test is still unstable like the previous one calculating yaw, when I make a small changes in pitch or roll, readings start bouncing.
+After data captured, I put it into excel and generate a curve.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/4/3.jpg)
+Use the formula speed = distance/time I get, **`(4044-1154)mm / (1428-641)ms = 2.89m / 0.787s = 3.672 m/s`**.
+The speed range is [0, 3.672] m/s.
