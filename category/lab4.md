@@ -57,5 +57,5 @@ Click **[here](https://youtu.be/p5TXN7i8xps)** if the video does not show.
 
 After data captured, I put it into excel and generate a curve.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/4/3.jpg)
-Use the formula speed = distance/time I get, **`(4044-1154)mm / (1428-641)ms = 2.89m / 0.787s = 3.672 m/s`**.
+Use the speed formula I get, **`(4044-1154)mm / (1428-641)ms = 2.89m / 0.787s = 3.672 m/s`**.
 The speed range is **`[0, 3.672] m/s`**.
