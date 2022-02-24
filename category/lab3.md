@@ -170,7 +170,7 @@ Based on data sheet and the [Qwiic Distance Sensor Hookup Guide](https://learn.s
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/17.jpg)
 
 3. 
-The goal is to get high sampling rate, avoid **`Signal Fail`** event, like overclocking CPU. After serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
+The goal is to get high sampling rate, avoid **`Signal Fail`** event, like overclocking CPU. The default settings of measurement period and timing budget have low sampling rate, after serval test with these two functions, I found out the below settings would be a stable one and gives me 25 Hz.
 {% highlight c linenos %}
 distanceSensor.setDistanceModeShort();
 distanceSensor.setTimingBudgetInMs(20);
@@ -201,7 +201,7 @@ There is a reference frames sign on the IMU surface.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/21.jpg)
 
 I discovered when I give a acceleration towards to one of the arrow direction, the acceleration on that axis reading is negative.
-When I move the IMU suddenly to one direction, the gyroscope generates a pulse-liked curve. It will first goes positive(negative) side then negative(positive) side and finally goes back to zero.
+When I move the IMU suddenly to one direction, the gyroscope generates a pulse-liked curve. It will first goes positive(negative) side then negative(positive) side and finally goes back to zero. Also, the gyroscopehas no reading when it is idle(no movement), but accelerometer has the reading, since the g-force pulls down.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/22.jpg)
 
 ### Accelerometer
@@ -225,12 +225,50 @@ I put the IMU on my desk and hold it on my side of desk to measure {09, 0, 90} c
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/25.jpg)
 
 Here are the results I get.
-The maximum error is 90°- 88.33° = 1.67°, which is acceptable.
 |       |  -90  |   0   |   +90  |
 |-------|:-----:|:-----:|:------:|
 | Pitch | 88.33 |  0.32 | -88.79 |
 | Roll  | 89.25 | -0.24 | -88.50 |
 
+Do the calibration according to my results:
+{% highlight c linenos %}
+float pitch = ((180 * atan2(sensor->accX(), sensor->accZ()) / M_PI) - 88.33)*180 / (-88.79 + 87.18) - 90;
+float roll = ((180 * atan2(sensor->accY(), sensor->accZ()) / M_PI) - 89.25)*180 / (88.50-89.25) - 90;
+{% endhighlight %}
 
+2. Tapping the sensor
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/26.jpg)
 ### Gyroscope
+In order to compute pitch, roll and yaw angles, here is the code I use.
+{% highlight c linenos %}
+dt = millis() - last_time;
+last_time = millis();
+
+pitch = 180 * atan2(sensor->accX(), sensor->accZ()) / M_PI;
+roll = 180 * atan2(sensor->accY(), sensor->accZ()) / M_PI;
+pitch_g += pitch*dt/1000;
+roll_g += roll*dt/1000;
+SERIAL_PORT.print("Pitch_g: ");
+printFormattedFloat(pitch_g, 3, 2);
+SERIAL_PORT.print("°\tRoll_g: ");
+printFormattedFloat(roll_g, 3, 2);
+SERIAL_PORT.print("°");
+{% endhighlight %}
+
+Test result chart and plot:
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/27.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/28.jpg)
+
+It's extremely unstable, need a low pass filter. Tried alpha = 0.4, getting better.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/29.jpg)
+
+Overall I'd trust accelerometer to calculate the pitch, roll and yaw, comparing to the gyroscope it has better accuracy and dependable readings.
 ## 5. Additional tasks
+I use the code provided by instructions.
+{% highlight c linenos %}
+float pitch = 180 * atan2(sensor->magX(), sensor->magZ()) / M_PI;
+float roll = 180 * atan2(sensor->magY(), sensor->magZ()) / M_PI;
+float xm = myICM.magX()* cos(pitch) - myICM.magY()* sin(roll)* sin(pitch) + myICM.magZ()* cos(roll)* sin(pitch);
+float ym = myICM.magY()* cos(roll) + myICM.magZ()* sin(roll/180*M_PI);
+float yaw = 180 * atan2(ym, xm)/M_PI;
+{% endhighlight %}
