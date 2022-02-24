@@ -225,8 +225,6 @@ I put the IMU on my desk and hold it on my side of desk to measure {09, 0, 90} c
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/25.jpg)
 
 Here are the results I get.
-
-
 |       |  -90  |   0   |   +90  |
 |-------|-------|-------|--------|
 | Pitch | 88.33 |  0.32 | -88.79 |
