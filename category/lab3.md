@@ -272,3 +272,12 @@ float xm = myICM.magX()* cos(pitch) - myICM.magY()* sin(roll)* sin(pitch) + myIC
 float ym = myICM.magY()* cos(roll) + myICM.magZ()* sin(roll/180*M_PI);
 float yaw = 180 * atan2(ym, xm)/M_PI;
 {% endhighlight %}
+
+But the result shows it's totally unreliable, I tried in my room, kitchen, but it stills has too much interferences...
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/30.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/31.jpg)
+
+Magnetic north: I put my IMU on my desk surface, and first let X axis pointing to magnetic north (red box below), then let it pointing to the magnetic south(green box below).
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/3/32.jpg)
+
+The IMU reading have 10 degrees offset when I facing the North, and when I facing the South, it gives me roughly 46 or 47 degrees reading. Also, this test is still unstable like the previous one calculating yaw, when I make a small changes in pitch or roll, readings start bouncing.
