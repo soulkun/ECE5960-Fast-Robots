@@ -87,7 +87,7 @@ void loop()
 
 To detect PWM signals, I attached the probe to the motor driver input pins.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/14.jpg)
-Here is the demo video shows PWM signals on the oscilloscope with **`analogWrite(, 200)`**.
+Here is the demo video shows PWM signals on the oscilloscope.
 Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
 <div class="video-container">
   <iframe width="640" height="360" src="https://youtu.be/CUaEkdkWahI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
