@@ -9,7 +9,7 @@ title: Lab 5
 Change from manual to open loop control, make the car able to execute a pre-programmed series of moves, using the Artemis board and two dual motor drivers.
 
 ## 1. Prelab
-### What pins will you use for control on the Artemis? (It is worth considering both pin functionality and physical placement on the board/car).
+### Pins use for control on the Artemis
 Since I need the Pulse-width modulation (PWM) to control motor drivers, according to the **[Artemis Nano Schematic](https://cdn.sparkfun.com/assets/5/5/1/6/3/RedBoard-Artemis-Nano.pdf)**, those pins with `~` in front of it support PWM, therefore I pick **`A2, A3, 4 and A5`** for my motor control pins. Note: those pins start with `A` support Analog to Digital Converters (ADC).
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/1.jpg)
 
@@ -46,18 +46,18 @@ Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 ## 2. What are reasonable settings for the power supply?
 
 
-## 3. Use analogWrite commands to generate PWM signals and show using an oscilloscope.
+## 3. Use analogWrite commands to generate PWM signals and show using an oscilloscope
 
 ## 4. Take your car apart!
 
-## 5. Run the motor in both directions.
+## 5. Run the motor in both directions
 
-## 6. The lower limit for each motor still turns while on the ground.
+## 6. The lower limit for each motor still turns while on the ground
 
-## 7. Move in a fairly straight line.
+## 7. Move in a fairly straight line
 
-## 8. Open loop, untethered control.
+## 8. Open loop, untethered control
 
-## 9. Run only when it hears loud frequencies.
+## 9. Run only when it hears loud frequencies
 
 ## 10. Additional Tasks
