@@ -36,6 +36,10 @@ In order to pass sensor wires and two power wires (Artemis and motor drivers), I
 After wires passed the hole.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/9.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/10.jpg)
+
+Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/11.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/12.jpg)
 ## 2.
 
 
