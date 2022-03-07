@@ -17,6 +17,8 @@ Since I need the Pulse-width modulation (PWM) to control motor drivers, accordin
 Each motor driver can deliver 1.2 A per channel continuously (2 A peak) to a pair of DC motors. In this lab, I have two motor drivers connecting in parallel, if attach the Artemis in parallel together, there may not have enough amps to support motor drivers which can cause the battery be drink out faster.
 
 ###  Hook up the motor drivers
+To get the maximum amps, need parallel couple the two inputs and outputs on each motor driver.
+
 For inputs, I use a tiny shunt jumper to connect B2_IN and A2_IN, then use a zero-ohm resistor to connect B1_IN and A1_IN. The reason for not using a bare wire here is to prevent a short circuit with B2/A2_IN when hooking motor drivers into the car and future debug. To make connections between the motor driver and Artemis Nano, I soldered a right-angle male pin on the B channel.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/2.jpg)
 
@@ -40,6 +42,7 @@ After wires passed the hole.
 Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/11.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/12.jpg)
+
 ## 2.
 
 
