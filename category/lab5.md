@@ -31,6 +31,9 @@ In the end, use a board-to-board connector pass through both VIN and GND pins to
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/6.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/7.jpg)
 
+Schematic diagram
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/Sketch_bb.jpg)
+
 ### Wiring
 In order to pass sensor wires and two power wires (Artemis and motor drivers), I drilled a hole on the side of the battery holder, then pass all necessary wires to the battery holder by squeezing between two motors.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/8.jpg)
@@ -43,29 +46,52 @@ Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/11.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/12.jpg)
 
+
 ## 2. What are reasonable settings for the power supply?
 The DRV8833 dual motor driver datasheet states the operating voltage is **`2.7‌‌ V to 10.8 V`**.
 I use the DC power supply and set 2.70 V along with maximum 2.0 A, connect it to one of the motor drivers.
-Found out the lowerbound is around 2.63 V.
+Found out the lowerbound is around **`2.63 V`**.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/13.jpg)
 Click **[here](https://youtu.be/h6ocp_dpemo)** if the video does not show.
 <div class="video-container">
   <iframe width="640" height="360" src="https://youtu.be/h6ocp_dpemo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-Next is the test on 3.70 V, this is the LiPo battery voltage.
+Next is the test on **`3.70 V`**, this is the LiPo battery voltage.
 Click **[here](https://youtu.be/0qPUVuoCuus)** if the video does not show.
 <div class="video-container">
   <iframe width="640" height="360" src="https://youtu.be/0qPUVuoCuus" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-Also, I tested 5.00 V, but I don't want to go over 5 V in case to protect motor driver overheat, although the datasheet states maximum is 10.8 V.
+Also, I tested **`5.00 V`**, but I don't want to go over 5 V in case to protect motor driver overheat, although the datasheet states maximum is 10.8 V.
 Click **[here](https://youtu.be/J9-P-nVRHXY)** if the video does not show.
 <div class="video-container">
   <iframe width="640" height="360" src="https://youtu.be/J9-P-nVRHXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## 3. Use analogWrite commands to generate PWM signals and show using an oscilloscope
+The **`analogWrite()`** function ranges from 0 to 255, and I set it to 200.
+{% highlight c linenos %}
+void setup()
+{
+  pinMode(A2, OUTPUT);
+  pinMode(A3, OUTPUT);
+}
+
+void loop()
+{
+  analogWrite(A2, 200);
+  analogWrite(A3, 0);
+}
+{% endhighlight %}
+
+To detect PWM signals, I attached the probe to the motor driver input pins.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/14.jpg)
+Here is the demo video shows PWM signals on the oscilloscope with **`analogWrite(, 200)`**.
+Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://youtu.be/CUaEkdkWahI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## 4. Take your car apart!
 
