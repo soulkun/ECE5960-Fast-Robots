@@ -60,4 +60,4 @@ Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 
 ## 9. Run only when it hears loud frequencies.
 
-## Additional Tasks
+## 10. Additional Tasks
