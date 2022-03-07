@@ -32,6 +32,8 @@ In the end, use a board-to-board connector pass through both VIN and GND pins to
 ### Wiring
 In order to pass sensor wires and two power wires (Artemis and motor drivers), I drilled a hole on the side of the battery holder, then pass all necessary wires to the battery holder by squeezing between two motors.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/8.jpg)
+
+After wires passed the hole.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/9.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/10.jpg)
 ## 2.
