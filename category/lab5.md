@@ -43,21 +43,11 @@ Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/11.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/12.jpg)
 
-## 2.
+## 2. What are reasonable settings for the power supply?
 
 
-## 4.
+## 3. Use analogWrite commands to generate PWM signals and show using an oscilloscope.
 
+## 4. Take your car apart!
 
-## 5.
-### Note: 
-We found one stunt that the car can **`dancing`** itself.
-First, hold the left/right key to let the car spinning.
-Second, release the left/right key and at the sametime, hold the up/down key, the car will start dancing.
-Click **[here](https://www.youtube.com/watch?v=s1zcrImvJYE)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://www.youtube.com/watch?v=s1zcrImvJYE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-
-## 6. 
+## 5. Run the motor in both directions.
