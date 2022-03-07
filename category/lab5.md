@@ -51,3 +51,13 @@ Finally, hook up sensors by using 3M 9448A Double Coated Tissue Tape.
 ## 4. Take your car apart!
 
 ## 5. Run the motor in both directions.
+
+## 6. The lower limit for each motor still turns while on the ground.
+
+## 7. Move in a fairly straight line.
+
+## 8. Open loop, untethered control.
+
+## 9. Run only when it hears loud frequencies.
+
+## Additional Tasks
