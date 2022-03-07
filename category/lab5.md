@@ -93,16 +93,15 @@ Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
   <iframe width="640" height="360" src="https://youtu.be/CUaEkdkWahI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-## 4. Take your car apart!
 
-## 5. Run the motor in both directions
+## 4. Run the motor in both directions
 
-## 6. The lower limit for each motor still turns while on the ground
+## 5. The lower limit for each motor still turns while on the ground
 
-## 7. Move in a fairly straight line
+## 6. Move in a fairly straight line
 
-## 8. Open loop, untethered control
+## 7. Open loop, untethered control
 
-## 9. Run only when it hears loud frequencies
+## 8. Run only when it hears loud frequencies
 
-## 10. Additional Tasks
+## 9. Additional Tasks
