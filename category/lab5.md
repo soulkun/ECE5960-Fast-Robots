@@ -146,6 +146,6 @@ void reverse(uint8_t speed)
 
 ## 7. Open loop, untethered control
 
-## 8. Run only when it hears loud frequencies
+## 8. (Optional) Run only when it hears loud frequencies
 
 ## 9. Additional Tasks
