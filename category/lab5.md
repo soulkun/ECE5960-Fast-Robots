@@ -95,6 +95,65 @@ Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
 
 
 ## 4. Run the motor in both directions
+I wrote three helper functions to perform forward, backward and stop (freeze). And wrote a sequence loop to turn wheels in both directions.
+
+{% highlight c linenos %}
+#define L1 A2
+#define L2 A3
+#define R1 4
+#define R2 A5
+
+void setup()
+{
+  pinMode(L1, OUTPUT);
+  pinMode(L2, OUTPUT);
+  pinMode(R1, OUTPUT);
+  pinMode(R2, OUTPUT);
+  freeze();
+}
+
+void loop()
+{
+  forward(255);
+  delay(1000);
+
+  freeze();
+  delay(1000);
+
+  backward(255);
+  delay(1000)
+}
+
+void freeze()
+{
+  analogWrite(L1, 0);
+  analogWrite(L2, 0);
+  analogWrite(R1, 0);
+  analogWrite(R2, 0);
+}
+
+void forward(uint8_t spd)
+{
+  analogWrite(L1, 0);
+  analogWrite(L2, spd);
+  analogWrite(R1, spd);
+  analogWrite(R2, 0);
+}
+
+void backward(uint8_t spd)
+{
+  analogWrite(L1, spd);
+  analogWrite(L2, 0);
+  analogWrite(R1, 0);
+  analogWrite(R2, spd);
+}
+{% endhighlight %}
+
+Here is the video demo for both directions.
+Click **[here](https://youtu.be/EFe9KeUGqe8)** if the video does not show.
+<div class="video-container">
+  <iframe width="640" height="360" src="https://youtu.be/EFe9KeUGqe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## 5. The lower limit for each motor still turns while on the ground
 
