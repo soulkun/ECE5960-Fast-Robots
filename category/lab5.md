@@ -95,7 +95,7 @@ Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
 
 
 ## 4. Run the motor in both directions
-I wrote three helper functions to perform forward, backward and stop (freeze). And wrote a sequence loop to turn wheels in both directions.
+I wrote three helper functions to perform forward, backward and stop. And wrote a sequence loop to turn wheels in both directions.
 
 {% highlight c linenos %}
 #define L1 A2
@@ -109,22 +109,22 @@ void setup()
   pinMode(L2, OUTPUT);
   pinMode(R1, OUTPUT);
   pinMode(R2, OUTPUT);
-  freeze();
+  neutral();
 }
 
 void loop()
 {
-  forward(255);
+  drive(255);
   delay(1000);
 
-  freeze();
+  neutral();
   delay(1000);
 
-  backward(255);
+  reverse(255);
   delay(1000)
 }
 
-void freeze()
+void neutral()
 {
   analogWrite(L1, 0);
   analogWrite(L2, 0);
@@ -132,20 +132,20 @@ void freeze()
   analogWrite(R2, 0);
 }
 
-void forward(uint8_t spd)
+void drive(uint8_t speed)
 {
   analogWrite(L1, 0);
-  analogWrite(L2, spd);
-  analogWrite(R1, spd);
+  analogWrite(L2, speed);
+  analogWrite(R1, speed);
   analogWrite(R2, 0);
 }
 
-void backward(uint8_t spd)
+void reverse(uint8_t speed)
 {
-  analogWrite(L1, spd);
+  analogWrite(L1, speed);
   analogWrite(L2, 0);
   analogWrite(R1, 0);
-  analogWrite(R2, spd);
+  analogWrite(R2, speed);
 }
 {% endhighlight %}
 
