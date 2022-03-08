@@ -52,22 +52,14 @@ The DRV8833 dual motor driver datasheet states the operating voltage is **`2.7â€
 I use the DC power supply and set 2.70 V along with maximum 2.0 A, connect it to one of the motor drivers.
 Found out the lowerbound is around **`2.63 V`**.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/13.jpg)
-Click **[here](https://youtu.be/h6ocp_dpemo)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://youtu.be/h6ocp_dpemo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+**[Video Demo](https://youtu.be/h6ocp_dpemo)** 
 
 Next is the test on **`3.70 V`**, this is the LiPo battery voltage.
-Click **[here](https://youtu.be/0qPUVuoCuus)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://youtu.be/0qPUVuoCuus" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+**[Video Demo](https://youtu.be/0qPUVuoCuus)**
 
 Also, I tested **`5.00 V`**, but I don't want to go over 5 V in case to protect motor driver overheat, although the datasheet states maximum is 10.8 V.
-Click **[here](https://youtu.be/J9-P-nVRHXY)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://youtu.be/J9-P-nVRHXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+**[Video Demo](https://youtu.be/J9-P-nVRHXY)**
+
 
 ## 3. Use analogWrite commands to generate PWM signals and show using an oscilloscope
 The **`analogWrite()`** function ranges from 0 to 255, and I set it to 200.
@@ -87,15 +79,13 @@ void loop()
 
 To detect PWM signals, I attached the probe to the motor driver input pins.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/14.jpg)
-Here is the demo video shows PWM signals on the oscilloscope.
-Click **[here](https://youtu.be/CUaEkdkWahI)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://youtu.be/CUaEkdkWahI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+**[Video Demo](https://youtu.be/CUaEkdkWahI)**
+
 
 
 ## 4. Run the motor in both directions
 I wrote three helper functions to perform forward, backward and stop. And wrote a sequence loop to turn wheels in both directions.
+**[Video Demo](https://youtu.be/EFe9KeUGqe8)**
 
 {% highlight c linenos %}
 #define L1 A2
@@ -149,11 +139,6 @@ void reverse(uint8_t speed)
 }
 {% endhighlight %}
 
-Here is the video demo for both directions.
-Click **[here](https://youtu.be/EFe9KeUGqe8)** if the video does not show.
-<div class="video-container">
-  <iframe width="640" height="360" src="https://youtu.be/EFe9KeUGqe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
 
 ## 5. The lower limit for each motor still turns while on the ground
 
