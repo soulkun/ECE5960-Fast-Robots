@@ -158,7 +158,7 @@ The lower limit for right wheels is **`107`**.
 **[Video Demo](https://youtu.be/a3DRbuL6jvU)**
 
 ## 6. Move in a fairly straight line
-I put my car on the ground, measured approximately 2.520 meters distances, then powered both motors using analogWrite(100) and it moves in a pretty straight line.
+I put my car on the ground, measured approximately 2.520 meters distances, then powered both motors using analogWrite(100) without a calibration factor and it moves in a pretty straight line.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/15.jpg)
 **[Video Demo](https://youtu.be/f-y56RQ5n1M)**
 {% highlight c linenos %}
@@ -210,6 +210,8 @@ void reverse(uint8_t speed)
 }
 {% endhighlight %}
 ## 7. Open loop, untethered control
+Unplug the USB type-C cable, install two 850mAh batteries to power motor drivers and Artemis board separately, then I write a program that performs forward then left turn. The robot runs autonomously.
+**[Video Demo](https://youtu.be/71D-C9EbVow)**
 {% highlight c linenos %}
 void loop()
 {
@@ -221,11 +223,12 @@ void loop()
 
   left(255);
   delay(450);
-  
+
   neutral();
   delay(1000);
 }
 {% endhighlight %}
-## 8. (Optional) Run only when it hears loud frequencies
 
-## 9. Additional Tasks
+## 8. Additional Tasks
+By using **`analogWrite(200)`**, the oscilloscope shows the frequency is roughly **`183 Hz`** (bottom right cornor) and 78.4% duty cycle. One of the benefits of manually configuring timers, is a faster PWM signal can have much more resolutions and controls motor drivers more precisely. e.g. (0 to 255) V.S. (0 to 4095).
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/16.jpg)
