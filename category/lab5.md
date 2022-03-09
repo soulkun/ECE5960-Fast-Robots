@@ -141,7 +141,21 @@ void reverse(uint8_t speed)
 
 
 ## 5. The lower limit for each motor still turns while on the ground
+To test the lower limit, I use analogWrite starting from 0 and going up to 255, increment 1 step every sec.
+{% highlight c linenos %}
+for (int speed = 0; speed < 255; speed++)
+  {
+    Serial.println(speed);
+    analogWrite(R1, speed);
+    delay(1000);
+  }
+{% endhighlight %}
 
+The lower limit for left wheels is **`97`**.
+**[Video Demo](https://youtu.be/3vnXAVHUBSA)**
+
+The lower limit for right wheels is **`107`**.
+**[Video Demo](https://youtu.be/a3DRbuL6jvU)**
 ## 6. Move in a fairly straight line
 
 ## 7. Open loop, untethered control
