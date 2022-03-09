@@ -210,7 +210,22 @@ void reverse(uint8_t speed)
 }
 {% endhighlight %}
 ## 7. Open loop, untethered control
+{% highlight c linenos %}
+void loop()
+{
+  drive(100);
+  delay(400);
 
+  neutral();
+  delay(1000);
+
+  left(255);
+  delay(450);
+  
+  neutral();
+  delay(1000);
+}
+{% endhighlight %}
 ## 8. (Optional) Run only when it hears loud frequencies
 
 ## 9. Additional Tasks
