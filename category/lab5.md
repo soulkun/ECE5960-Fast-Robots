@@ -156,8 +156,59 @@ The lower limit for left wheels is **`97`**.
 
 The lower limit for right wheels is **`107`**.
 **[Video Demo](https://youtu.be/a3DRbuL6jvU)**
-## 6. Move in a fairly straight line
 
+## 6. Move in a fairly straight line
+I put my car on the ground, measured approximately 2.520 meters distances, then powered both motors using analogWrite(100) and it moves in a pretty straight line.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/15.jpg)
+**[Video Demo](https://youtu.be/f-y56RQ5n1M)**
+{% highlight c linenos %}
+#define L1 A2
+#define L2 A3
+#define R1 4
+#define R2 A5
+
+void setup()
+{
+  pinMode(L1, OUTPUT);
+  pinMode(L2, OUTPUT);
+  pinMode(R1, OUTPUT);
+  pinMode(R2, OUTPUT);
+  neutral();
+}
+
+void loop()
+{
+  drive(100);
+  delay(2000);
+
+  neutral();
+  delay(10000);  
+}
+
+void neutral()
+{
+  analogWrite(L1, 0);
+  analogWrite(L2, 0);
+  analogWrite(R1, 0);
+  analogWrite(R2, 0);
+}
+
+void drive(uint8_t speed)
+{
+  analogWrite(L1, 0);
+  analogWrite(L2, speed);
+  analogWrite(R1, speed);
+  analogWrite(R2, 0);
+}
+
+void reverse(uint8_t speed)
+{
+  analogWrite(L1, speed);
+  analogWrite(L2, 0);
+  analogWrite(R1, 0);
+  analogWrite(R2, speed);
+}
+{% endhighlight %}
 ## 7. Open loop, untethered control
 
 ## 8. (Optional) Run only when it hears loud frequencies
