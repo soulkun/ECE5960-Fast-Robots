@@ -230,5 +230,9 @@ void loop()
 {% endhighlight %}
 
 ## 8. Additional Tasks
+### What frequency analogWrite generates?
 By using **`analogWrite(200)`**, the oscilloscope shows the frequency is roughly **`183 Hz`** (bottom right cornor) and 78.4% duty cycle. One of the benefits of manually configuring timers, is a faster PWM signal can have much more resolutions and controls motor drivers more precisely. e.g. (0 to 255) V.S. (0 to 4095).
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/16.jpg)
+
+### Write a program that ramps up and down in speed slowly.
+### Reporting the values to the computer using Bluetooth when ramp up procedure is over.
