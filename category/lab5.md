@@ -235,4 +235,71 @@ By using **`analogWrite(200)`**, the oscilloscope shows the frequency is roughly
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/16.jpg)
 
 ### Write a program that ramps up and down in speed slowly.
+The analogWrite range is from 0 to 255, I start from 0, add 15 each time the program executes the loop, when it reaches 255, decrease by 51 each time until it reaches 0. There are two states in this machine, either ramp_up or ramp_down, defined a boolean variable called "ramp_up" to indicate which state.
+
+{% highlight c linenos %}
+analogWrite(L1, 0);
+analogWrite(R2, 0);
+analogWrite(L2, spd);
+analogWrite(R1, spd);
+
+if(spd == 255)
+  ramp_up = 0;
+else if(spd == 0)
+  ramp_up = 1;
+  
+if(ramp_up)
+  spd += 15;
+else
+  spd -= 51;
+{% endhighlight %}
+
 ### Reporting the values to the computer using Bluetooth when ramp up procedure is over.
+Based on previous code, I plan to measure the ramp up procedure, to perform this, I use the ToF sensor and record the distance, current time and current speed, wrap up everyting into a EString object and send it over the BLE.
+
+{% highlight c linenos %}
+void get_tof()
+{
+  distanceSensor.startRanging(); //Write configuration bytes to initiate measurement
+  while (!distanceSensor.checkForDataReady())
+  {
+    delay(1);
+  }
+  int distance = distanceSensor.getDistance(); //Get the result of the measurement from the sensor
+  distanceSensor.clearInterrupt();
+  distanceSensor.stopRanging();
+
+  Serial.print(millis());
+  Serial.print(", ");
+  Serial.print(spd);
+  Serial.print(", ");
+  Serial.print(distance);
+  Serial.print("\n");
+  tx_estring_value.clear();
+  tx_estring_value.append(millis());
+  tx_estring_value.append(", ");
+  tx_estring_value.append(spd);
+  tx_estring_value.append(", ");
+  tx_estring_value.append(distance);
+  
+  tx_characteristic_string.writeValue(tx_estring_value.c_str());
+}
+{% endhighlight %}
+
+On the Jupyter Lab side, first I create a new characteristics called **`RX_MYSTRING`**, then use notify callback function to receive bytearray and convert to string.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/17.jpg)
+
+Then I put the car to the wall, and let it speed up to the opposite wall. On my laptop, give a start signal to the Artemis and starting the notify on jupyter lab to capture data.
+**[Video Demo](https://youtu.be/0xBcweJMkq4)**
+
+After the experiment, I got the time versus distance data, below the x-axis is time in millisec, y-axis is distance in millimeters.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/18.jpg)
+
+Clean the dirty data captured by ToF, since the ToF sensor has a measurement range.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/19.jpg)
+
+Calculate the top speed based on two sample points **`(0.041-1.758) / (16.753-16.121) = -2.716772 m/s`**.
+The range of speeds roughly **`[0, 2.716772] m/s`**.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/5/20.jpg)
+
+This experiment could be inaccurate, depending on the surface of the floor, friction could be different, battery level may also affect the top speed of motors.
