@@ -6,7 +6,7 @@ title: Lab 6
 # Closed-loop control (PID)
 
 ## 0. Objective
-The purpose of this lab is to get experience with PID control.
+The purpose of this lab is to get experience with PID control, discover which works best for the system (P, PI, PID, PD)
 
 ## 1. Prelab
 In order to transmit my time v.s. duty cycle data via the BLE, I get a unique UUID **`D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB`** by using an online UUID gnerator, and added a new characteristics called **`PIDstring`** in my **ble_arduino.ino** code.
@@ -39,3 +39,6 @@ Also, added a corresponding entry in **connection.yaml**.
 {% highlight yaml linenos %}
 PID_STRING: 'D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB'
 {% endhighlight %}
+
+## 2. Task A: Don’t Hit the Wall!!
+
