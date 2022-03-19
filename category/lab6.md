@@ -9,7 +9,7 @@ title: Lab 6
 The purpose of this lab is to get experience with PID control.
 
 ## 1. Prelab
-To transmit my time-duty cycle data, I get a unique UUID **`D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB`** by using an online UUID gnerator, and added a new characteristics called **`PIDstring`** in my **ble_arduino.ino** code.
+In order to transmit my time v.s. duty cycle data via the BLE, I get a unique UUID **`D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB`** by using an online UUID gnerator, and added a new characteristics called **`PIDstring`** in my **ble_arduino.ino** code.
 
 {% highlight c linenos %}
 //////////// BLE UUIDs ////////////
