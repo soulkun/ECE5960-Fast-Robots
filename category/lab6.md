@@ -36,6 +36,6 @@ testService.addCharacteristic(tx_characteristic_PIDstring);
 {% endhighlight %}
 
 Also, added a corresponding entry in **connection.yaml**.
-{% highlight c linenos %}
+{% highlight yaml linenos %}
 PID_STRING: 'D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB'
 {% endhighlight %}
