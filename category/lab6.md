@@ -184,11 +184,13 @@ newOutput        = constrain(newOutput, outputMin, outputMax);
 {% endhighlight %}
 
 ### PID Tuning
+Starting with **`P=0.01, I=0, D=0`** and have a **`setpoint = 300`**. Since I have my deadband set to 35, the maximum duty cycle should be **`225 - 35 = 220`**.
+
 {% highlight c linenos %}
 #include "ArduPID.h"
 
 double setpoint = 300;
-double p = 0;
+double p = 0.01;
 double i = 0;
 double d = 0;
 
