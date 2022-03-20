@@ -234,3 +234,5 @@ void get_tof()
     Serial.print("\n");
 }
 {% endhighlight %}
+
+I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the one that can let the car reaches full duty cycle with a tiny oscillation.
