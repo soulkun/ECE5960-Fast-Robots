@@ -182,3 +182,50 @@ double newOutput = bias + pOut + iOut + dOut;
 newOutput        = constrain(newOutput, outputMin, outputMax);
 *output          = newOutput;
 {% endhighlight %}
+
+### PID Tuning
+{% highlight c linenos %}
+#include "ArduPID.h"
+
+double setpoint = 300;
+double p = 0;
+double i = 0;
+double d = 0;
+
+void setup()
+{
+    myController.begin(&input, &output, &setpoint, p, i, d);
+    myController.reverse();                // Uncomment if controller output is "reversed"
+    myController.setOutputLimits(-220, 220);
+    myController.setBias(0);               // Bias
+    myController.setWindUpLimits(-10, 10); // Groth bounds for the integral term to prevent integral wind-up
+    myController.start();
+}
+
+void loop()
+{
+    get_tof();
+}
+
+void get_tof()
+{
+    sensors[0].read();
+    if (sensors[0].timeoutOccurred()) { Serial.print(" Front ToF TIMEOUT"); }
+
+    int distance = sensors[0].ranging_data.range_mm;
+
+    input = distance;         // Send data to PID input
+    myController.compute();   // Calculate PID
+    
+    // Deadband settings
+    if(output > 0)
+      output += 35;
+    else if(output < 0)
+      output -= 35;
+
+    Serial.print(distance);
+    Serial.print(", ");
+    Serial.print(output);
+    Serial.print("\n");
+}
+{% endhighlight %}
