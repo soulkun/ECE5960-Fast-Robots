@@ -99,6 +99,7 @@ There exist an **[Arduino PID library](https://github.com/br3ttb/Arduino-PID-Lib
 For proportional, it is used to control the output in proportion to the error, it will react immediately to an error value and try bring the process value close to the set point. The higher the proportional gain, the faster the reaction of the controller.
 
 Too Low: Controller reaction speed will be slow, and may not be stable.
+
 Too High: Controller may overshoot and start oscillating.
 {% highlight c linenos %}
 kp = pIn;
@@ -112,6 +113,7 @@ pOut = kp * curError;
 For integral, it will continue to accumulate over time until the set point is reached. The longer it takes to reach the setpoint, the more the integral influences the output.
 
 Too Low: Controller may neverreach the setpoint and may be slow.
+
 Too High: Controller may overshoot and start oscillating.
 {% highlight c linenos %}
 ki = iIn * (timer.timeDiff / 1000.0);
@@ -129,6 +131,7 @@ iOut = constrain(iOut, windupMin, windupMax);  // Prevent integral windup
 For derivative, it looks at the ramp rate or how fast the process value is reaching the setpoint, and limits the output to prevent overshooting.
 
 Too Low: Controller may react normally, but no means of limiting overshoot.
+
 Too High: Controller may be unstable, and have undesired reaction to distortion on the actual value.
 
 To prevent the derivatie kick issue, instead of adding (Kd * derivative of Error), I subtract (Kd * derivative of Input). This is known as using **“Derivative on Measurement”**.
