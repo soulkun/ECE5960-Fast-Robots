@@ -105,7 +105,7 @@ Too High: Controller may overshoot and start oscillating.
 kp = pIn;
 curInput    = *input;
 curSetpoint = *setpoint;
-curError = curSetpoint - curInput;
+curError    = curSetpoint - curInput;
 pOut = kp * curError;
 {% endhighlight %}
 
@@ -138,8 +138,7 @@ To prevent the derivatie kick issue, instead of adding (Kd * derivative of Error
 {% highlight c linenos %}
 kd = dIn / (timer.timeDiff / 1000.0);
 
-lastInput    = curInput;
-
+lastInput     = curInput;
 double dInput = *input - lastInput;
 
 dOut = -kd * dInput; // Derrivative on measurement
