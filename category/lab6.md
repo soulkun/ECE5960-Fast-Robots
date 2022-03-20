@@ -184,11 +184,14 @@ newOutput        = constrain(newOutput, outputMin, outputMax);
 {% endhighlight %}
 
 ### PID Tuning
-Starting with **`P=0.01, I=0, D=0`** and have a **`setpoint = 300`**. Since I have my deadband set to 35, the maximum duty cycle should be **`225 - 35 = 220`**.
+Starting with **`P=0.01, I=0, D=0`** and have a **`setpoint = 300`**. Since I have my deadband set to **`35`**, the maximum duty cycle should be **`225 - 35 = 220`**. To differentiate forward and backward, the duty cycle can be negative to represent backward, therefore **`setOutputLimits(-220, 220)`**. The last setup is add **`setWindUpLimits(-10, 10)`** using the default value 10 to prevent integral wind-up. In the loop part, capture the ToF reading and feeds into PID input.
 
 {% highlight c linenos %}
 #include "ArduPID.h"
 
+ArduPID myController;
+double input;
+double output;
 double setpoint = 300;
 double p = 0.01;
 double i = 0;
