@@ -261,3 +261,9 @@ I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the 
 **[Video Demo](https://youtu.be/CWWxV3E59Dw)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/5.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/6.jpg)
+
+
+**`P = 0.1, I = 0, D = 1`**, hit the wall.
+**[Video Demo](https://youtu.be/wfE__gsnmqA)**
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/7.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/8.jpg)
