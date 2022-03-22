@@ -251,7 +251,13 @@ I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the 
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/2.jpg)
 
 
-**`P = 0.1, I = 0, D = 0`**, able to reach the setpoint without collisions, but too slow.
+**`P = 0.01, I = 0, D = 0`**, able to reach the setpoint without collisions, but too slow.
 **[Video Demo](https://youtu.be/NGF-lzhlSVQ)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/3.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/4.jpg)
+
+
+**`P = 0.1, I = 0, D = 10`**, fast but overshoot.
+**[Video Demo](https://youtu.be/CWWxV3E59Dw)**
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/5.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/6.jpg)
