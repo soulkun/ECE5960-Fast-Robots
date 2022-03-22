@@ -27,6 +27,14 @@ Also, added a corresponding entry in **connection.yaml**.
 PID_STRING: 'D4FAA1B0-CA9E-457F-BBE3-537DC0B77EBB'
 {% endhighlight %}
 
+Finally, add notify to retrieve data.
+{% highlight python linenos %}
+def receiver(stub, bytearr):
+    print(ble.bybtearray_to_string(bytearr))
+
+ble.start_notify(ble.uuid["PID_STRING"], receiver)
+{% endhighlight %}
+
 ## 2. Task A: Don’t Hit the Wall!!
 
 ### Switched to Pololu ToF library
@@ -235,9 +243,15 @@ void get_tof()
 }
 {% endhighlight %}
 
-I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the one that can let the car reaches full duty cycle with a tiny oscillation.
+I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the one that can let the car reaches full duty cycle with a tiny oscillation. Then I start turning D from 1 up to 20, and found **`D = 18`** is the best choice.
 
-**`P = 0.01`**, able to reach the setpoint without collisions, but too slow.
-**[Video Demo](https://youtu.be/NGF-lzhlSVQ)**
+**`P = 0.1, I = 0, D = 18`**, able to reach the setpoint without collisions.
+**[Video Demo](https://youtu.be/d5MRQMPCLnc)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/1.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/2.jpg)
+
+
+**`P = 0.1, I = 0, D = 0`**, able to reach the setpoint without collisions, but too slow.
+**[Video Demo](https://youtu.be/NGF-lzhlSVQ)**
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/3.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/4.jpg)
