@@ -267,3 +267,6 @@ I tested P-value starting from 0.01 up to 0.5, and I found **`P = 0.1`** is the 
 **[Video Demo](https://youtu.be/wfE__gsnmqA)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/7.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/6/8.jpg)
+
+
+The reason I choose to do PD control without integral is because when I add the integral, it becomes very hard to tune and control. Use proportional as the main factor to control the speed, then by adjusting the derivative to eliminate overshooting. Also, the sampling rate is limited by ToF ranging frequency, which is 100ms/sample, if the car goes in full speed, 
