@@ -9,10 +9,19 @@ title: Lab 7
 Implement a Kalman Filter, which will helps execute the behavior in Lab 6 fast.
 
 ## Task A
-## 1. Kalman Filter Setup
-Let **`sigma_1 = 10, sigma_2 = 10, sigma_3 = 20`**, then the process noise and the sensor noise covariance matrices are
+## 1. Step Response
+I set the duty cycle to **`90`**, then put the robot at the 1.6m distance from the wall.
+
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/0.jpg)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/1.jpg)
+
+The max speed is around **`1.7 m/s`**, therefore **`d = u/v = 90/1700 = 0.052941`** and **`m = -dt(0.9)/ln(1-0.9) = (-0.0005*1.3s) / ln(0.1) = 0.000282291`**
+
+
+## 2. Kalman Filter Setup
+Let **`sigma_1 = 10, sigma_2 = 10, sigma_3 = 20`**, then the process noise and the sensor noise covariance matrices are
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/2.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/3.jpg)
 Since I am doing Task A, the C matrix would be **`C = np.array([[-1,0]])`**.
 
 {% highlight c linenos %}
@@ -24,7 +33,7 @@ sig_u=np.array([[sigma_1**2,0],[0,sigma_2**2]]) //We assume uncorrelated noise, 
 sig_z=np.array([[sigma_3**2]])
 {% endhighlight %}
 
-## 2. Sanity Check Your Kalman Filter
+## 3. Sanity Check Your Kalman Filter
 {% highlight python linenos %}
 A = np.array([[0,1],[0,-d/m]])
 B = np.array([[0],[1/m]])
@@ -48,8 +57,8 @@ def kf(mu,sigma,u,y):
 
     return mu,sigma
 {% endhighlight %}
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/3.png)
-## 3. Implement the Kalman Filter on the Robot
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/4.png)
+## 4. Implement the Kalman Filter on the Robot
 
 Under constructions...
 **[Video Demo](https://youtu.be/flHN8qgoR-I)**
