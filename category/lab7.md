@@ -31,6 +31,7 @@ B = np.array([[0],[1/m]])
 C = np.array([[-1,0]])
 sig_u = np.array([[sigma_1**2,0],[0,sigma_2**2]])
 sig_z = np.array([[sigma_3**2]])
+mu = np.array([[2532],[0]])
 
 def kf(mu,sigma,u,y):
     Ad = np.eye(2) + dt * A
