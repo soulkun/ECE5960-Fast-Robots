@@ -60,5 +60,5 @@ def kf(mu,sigma,u,y):
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/4.png)
 ## 4. Implement the Kalman Filter on the Robot
 
-Under constructions...
+Under construction...
 **[Video Demo](https://youtu.be/flHN8qgoR-I)**
