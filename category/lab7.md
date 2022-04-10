@@ -26,9 +26,6 @@ sig_z=np.array([[sigma_4**2]])
 
 ## 2. Sanity Check Your Kalman Filter
 
-A = np.array([[0,1],[0,-d/m]])
-B = np.array([[0],[1/m]])
-C = np.array([[1,0]])
 ## 3. Implement the Kalman Filter on the Robot
 
 Under constructions...
