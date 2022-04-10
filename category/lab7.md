@@ -21,11 +21,27 @@ sigma_2 = 10;
 sigma_3 = 20;
 
 sig_u=np.array([[sigma_1**2,0],[0,sigma_2**2]]) //We assume uncorrelated noise, therefore a diagonal matrix works.
-sig_z=np.array([[sigma_4**2]])
+sig_z=np.array([[sigma_3**2]])
 {% endhighlight %}
 
 ## 2. Sanity Check Your Kalman Filter
+{% highlight python linenos %}
+def kf(mu,sigma,u,y):
+    Ad = np.eye(2) + dt * A
+    Bd = dt * B
+    C = np.array([[-1,0]])
 
+    mu_p = Ad.dot(mu) + Bd.dot(u) 
+    sigma_p = Ad.dot(sigma.dot(Ad.transpose())) + Sigma_u
+    sigma_m = C.dot(sigma_p.dot(C.transpose())) + Sigma_z
+    kkf_gain = sigma_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
+
+    y_m = y-C.dot(mu_p)
+    mu = mu_p + kkf_gain.dot(y_m)    
+    sigma=(np.eye(2)-kkf_gain.dot(C)).dot(sigma_p)
+
+    return mu,sigma
+{% endhighlight %}
 ## 3. Implement the Kalman Filter on the Robot
 
 Under constructions...
