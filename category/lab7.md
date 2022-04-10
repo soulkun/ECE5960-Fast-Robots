@@ -26,10 +26,15 @@ sig_z=np.array([[sigma_3**2]])
 
 ## 2. Sanity Check Your Kalman Filter
 {% highlight python linenos %}
+A = np.array([[0,1],[0,-d/m]])
+B = np.array([[0],[1/m]])
+C = np.array([[-1,0]])
+sig_u = np.array([[sigma_1**2,0],[0,sigma_2**2]])
+sig_z = np.array([[sigma_3**2]])
+
 def kf(mu,sigma,u,y):
     Ad = np.eye(2) + dt * A
     Bd = dt * B
-    C = np.array([[-1,0]])
 
     mu_p = Ad.dot(mu) + Bd.dot(u) 
     sigma_p = Ad.dot(sigma.dot(Ad.transpose())) + Sigma_u
@@ -38,10 +43,11 @@ def kf(mu,sigma,u,y):
 
     y_m = y-C.dot(mu_p)
     mu = mu_p + kkf_gain.dot(y_m)    
-    sigma=(np.eye(2)-kkf_gain.dot(C)).dot(sigma_p)
+    sigma = (np.eye(2)-kkf_gain.dot(C)).dot(sigma_p)
 
     return mu,sigma
 {% endhighlight %}
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/7/3.png)
 ## 3. Implement the Kalman Filter on the Robot
 
 Under constructions...
