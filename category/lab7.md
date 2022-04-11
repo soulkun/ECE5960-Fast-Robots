@@ -75,12 +75,10 @@ Matrix<2,1> B = { 0,
 Matrix<1,2> C = { -1, 0 };
 
 
-
 Matrix<1> sig_z = {sigma_3};
-Matrix<2,1> mu = {0,0};
-Matrix<2,2> sigma = {0,0,
-                     0,0};
-
+Matrix<2,1> mu = {0, 0};
+Matrix<2,2> sigma = {0, 0,
+                     0, 0};
 {% endhighlight %}
 
 Under construction...
