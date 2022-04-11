@@ -48,13 +48,13 @@ def kf(mu,sigma,u,y):
     Bd = dt * B
 
     mu_p = Ad.dot(mu) + Bd.dot(u) 
-    sigma_p = Ad.dot(sigma.dot(Ad.transpose())) + Sigma_u
-    sigma_m = C.dot(sigma_p.dot(C.transpose())) + Sigma_z
-    kkf_gain = sigma_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
+    sig_p = Ad.dot(sigma.dot(Ad.transpose())) + Sigma_u
+    sigma_m = C.dot(sig_p.dot(C.transpose())) + Sigma_z
+    kkf_gain = sig_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
 
     y_m = y-C.dot(mu_p)
     mu = mu_p + kkf_gain.dot(y_m)    
-    sigma = (np.eye(2)-kkf_gain.dot(C)).dot(sigma_p)
+    sigma = (np.eye(2)-kkf_gain.dot(C)).dot(sig_p)
 
     return mu,sigma
 {% endhighlight %}
@@ -85,9 +85,35 @@ Matrix<1> sig_z = {sigma_3 * sigma_3};
 Matrix<2,1> mu = {0, 0};
 
 
+previous_time = millis();
+get_tof();
+mu = {ToF_reading, 0};
+sig = {0, 0,
+       0, 0};
+previous_error = mu(0, 0) - setpoint;
 
+while(millis() - previous_time < timelimit)
+{
+    current_time = millis();
+    d_t = current_time - previous_time;
+    A_d = {1, 1,
+           0, 1-d/m*dt};
+    B_d = {0,
+          dt/m};
+    mu_p = A_d * mu + B_d * 90;
+    sig_p = A_d * sig * ~A_d + sig_u;
+    sig_m = C * sig_p * ~C + sig_z;
+    sig_m = {1/sig_m(0,0);};
+    inv_sig_m = sig_m;
+    kf_gain = sig_p * ~C * inv_sig_m;
+    y = {dis};
+    y_m = y - C * mu_p;
+    mu = mu_p + KF_gain * y_m;
+    sig = (identMtx - kf_gain * C) * sig_p;
+}
 {% endhighlight %}
 
+Test using **`P = 0.5, I = 0, D = 18`**.
 Without the Kalman Filter
 **[Video Demo](https://youtube.com/shorts/9iHhhdpI9-c)**
 
