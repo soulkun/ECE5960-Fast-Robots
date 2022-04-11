@@ -36,12 +36,12 @@ sig_z=np.array([[sigma_3**2]])
 
 ## 3. Sanity Check Your Kalman Filter
 {% highlight python linenos %}
-A = np.array([[0,1],[0,-d/m]])
-B = np.array([[0],[1/m]])
+A = np.array([[0,1], [0,-d/m]])
+B = np.array([[0], [1/m]])
 C = np.array([[-1,0]])
-sig_u = np.array([[sigma_1**2,0],[0,sigma_2**2]])
+sig_u = np.array([[sigma_1**2,0], [0,sigma_2**2]])
 sig_z = np.array([[sigma_3**2]])
-mu = np.array([[2532],[0]])
+mu = np.array([[2532], [0]])
 
 def kf(mu,sigma,u,y):
     Ad = np.eye(2) + dt * A
@@ -69,9 +69,9 @@ float d = 90.0/1700;
 float m = 0.000282291;
 
 Matrix<2,2> A = { 0, 1,
-                  0, -kf_d/kf_m};
+                  0, -d/m};
 Matrix<2,1> B = { 0,
-                 1/kf_m };
+                 1/m };
 Matrix<1,2> C = { -1, 0 };
 
 
