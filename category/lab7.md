@@ -73,57 +73,19 @@ Matrix<2,2> A = { 0, 1,
                   0, -d/m};
 
 Matrix<2,1> B = { 0,
-                 1/m };
+                  1/m };
 
 Matrix<1,2> C = { -1, 0 };
 
-Matrix<2,2> sig_u = {sigma_1*sigma_1, 0,
-                     0, sigma_2*sigma_2};
+Matrix<2,2> sig_u = {sigma_1*sigma_1,   0,
+                     0,                 sigma_2*sigma_2};
 
 Matrix<1> sig_z = {sigma_3 * sigma_3};
 
 Matrix<2,1> mu = {0, 0};
 
 
-t_0 = millis();
-pre = millis();
-get_tof();
-mu = {(float)dis,0};
-sigma = {0,0,
-            0,0};
-pre_err = mu(0,0) - (float)set_point;
-i = 0;
-integ = 0.0;
-delay(10);
-while(millis() - t_0 < timelimit){
-    now = millis();
-    d_t = now - pre;
-    Delta_t = d_t/1000.0;
-    u = {-(float)dc};
-    
-    //prediction:
-    sigma_1 = 10 * 10 / Delta_t;
-    sigma_2 = 10 * 10 / Delta_t;
-    sig_u = {sigma_1, 0,
-            0, sigma_2};
-    A_d = {1, 1,
-            0, 1-kf_d/kf_m*Delta_t};
-    B_d = {0,
-            Delta_t/kf_m};
-    mu_p = A_d * mu + B_d * u;
-    sigma_p = A_d * sigma * ~A_d + sig_u;
-            
-    get_tof();
 
-    //update:
-    KF_cur = C * sigma_p * ~C + sig_z;
-    KF_curr = 1/KF_cur(0,0);
-    KF_cur = {KF_curr};
-    KF_gain = sigma_p * ~C * KF_cur;
-    y = {(float)dis};
-    y_m = y - C * mu_p;
-    mu = mu_p + KF_gain * y_m;
-    sigma = (I_2 - KF_gain * C) * sigma_p;
 {% endhighlight %}
 
 Without the Kalman Filter
