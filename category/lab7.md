@@ -119,3 +119,5 @@ Without the Kalman Filter
 
 With the Kalman Filter
 **[Video Demo](https://youtu.be/Eszzcpb_Q5k)**
+
+Compare two outcomes, the one with the Kalman filter has the smoothest motion.
