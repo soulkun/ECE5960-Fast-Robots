@@ -63,6 +63,7 @@ def kf(mu,sigma,u,y):
 ## 4. Implement the Kalman Filter on the Robot
 {% highlight c linenos %}
 #include <BasicLinearAlgebra.h>
+using namespace BLA;
 
 int sigma_3 = 20;
 float d = 90.0/1700;
@@ -70,15 +71,19 @@ float m = 0.000282291;
 
 Matrix<2,2> A = { 0, 1,
                   0, -d/m};
+
 Matrix<2,1> B = { 0,
                  1/m };
+
 Matrix<1,2> C = { -1, 0 };
 
+Matrix<2,2> sig_u = {sigma_1*sigma_1, 0,
+                     0, sigma_2*sigma_2};
 
-Matrix<1> sig_z = {sigma_3};
+Matrix<1> sig_z = {sigma_3 * sigma_3};
+
 Matrix<2,1> mu = {0, 0};
-Matrix<2,2> sigma = {0, 0,
-                     0, 0};
+
 {% endhighlight %}
 
 Under construction...
