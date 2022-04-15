@@ -212,3 +212,6 @@ Below are the ToF reading data.
 |                342 |      376     |
 
 ## 3. Merge and Plot your readings
+
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/9/plot.png)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/9/line.png)
