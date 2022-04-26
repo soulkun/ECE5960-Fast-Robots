@@ -1,6 +1,6 @@
 ---
 layout: category
-title: Lab 9
+title: Lab 10
 ---
 
 # Mapping
