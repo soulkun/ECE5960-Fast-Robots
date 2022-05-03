@@ -28,7 +28,7 @@ Or use the start/stop/reset command blocks.
 If anything screwed up, first stop both simulator and the plotter, then reset them and start.
 
 ## 2. Open Loop Control
-The goal is to make the robot follow a set of velocity commands to generate a "square" shape loop.
+The goal is to make the robot follows a set of velocity commands to generate a "square" shape loop.
 
 {% highlight python linenos %}
 while cmdr.sim_is_running() and cmdr.plotter_is_running():
