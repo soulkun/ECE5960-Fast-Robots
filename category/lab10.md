@@ -30,11 +30,15 @@ If anything screwed up, first stop both simulator and the plotter, then reset th
 ## 2. Open Loop Control
 The goal is to make the robot follows a set of velocity commands to generate a "square" shape loop.
 
+To accomplish this, I use the **`set_vel(linear_vel, angular_vel)`** command to let the robot turn left 90 degrees for 1 second, then go forward at 0.5 m/s for 1 second, and repeat...
+
+**[(Video Demo)](https://youtu.be/v4pSWZYt0R4)**
+
 {% highlight python linenos %}
 while cmdr.sim_is_running() and cmdr.plotter_is_running():
     pose, gt_pose = cmdr.get_pose()
     
-    // Turn 90 degrees at 1 rad/s
+    // Turn 90 degrees
     cmdr.set_vel(0, 90 * math.pi / 180.0)
     await asyncio.sleep(1)
     
