@@ -53,6 +53,8 @@ while cmdr.sim_is_running() and cmdr.plotter_is_running():
 
 In the video demo, there is no way to draw a perfect square every time, this is because of using the **`await asyncio.sleep(1)`**, depending on the CPU and the OS, different machines could have different processing times and delays, there is no guarantee it's exactly 1 second.
 
+I tried turn 89, 88, 87 or 87.5 degrees, sometimes work, sometimes not, so I go back to 90 degrees.
+
 The green line shows the ground truth and the red line shows the odometry. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
 
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/3.jpg)
