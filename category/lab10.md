@@ -25,5 +25,24 @@ Or use the start/stop/reset command blocks.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/2.jpg)
 
 
-
 If anything screwed up, first stop both simulator and the plotter, then reset them and start.
+
+## 2. Open Loop Control
+The goal is to make the robot follow a set of velocity commands to generate a "square" shape loop.
+
+{% highlight python linenos %}
+while cmdr.sim_is_running() and cmdr.plotter_is_running():
+    pose, gt_pose = cmdr.get_pose()
+    
+    // Turn 90 degrees at 1 rad/s
+    cmdr.set_vel(0, 90 * math.pi / 180.0)
+    await asyncio.sleep(1)
+    
+    // Go forward at 0.5 m/s
+    cmdr.set_vel(0.5, 0)
+    await asyncio.sleep(1)
+
+    
+    cmdr.plot_odom(pose[0], pose[1])
+    cmdr.plot_gt(gt_pose[0], gt_pose[1])
+{% endhighlight %}
