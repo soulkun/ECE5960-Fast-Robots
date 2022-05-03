@@ -50,3 +50,11 @@ while cmdr.sim_is_running() and cmdr.plotter_is_running():
     cmdr.plot_odom(pose[0], pose[1])
     cmdr.plot_gt(gt_pose[0], gt_pose[1])
 {% endhighlight %}
+
+In the video demo, there is no way to draw a perfect square every time, this is because of using the **`await asyncio.sleep(1)`**, depending on the CPU and the OS, different machines could have different processing times and delays, there is no guarantee it's exactly 1 second.
+
+The green line shows the ground truth and the red line shows the odometry. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
+
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/3.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/4.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/5.jpg)
