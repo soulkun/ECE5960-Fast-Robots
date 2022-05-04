@@ -55,7 +55,7 @@ In the video demo, there is no way to draw a perfect square every time, this is 
 
 I tried turn 89, 88, 87 or 87.5 degrees, sometimes work, sometimes not, so I go back to 90 degrees.
 
-The green line shows the ground truth and the red line shows the odometry. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
+The green line shows the ground truth, which is the actual position; and the red line shows the odometry, which is the sensor measurement data. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
 
 **Comparison of odometry and ground truth.**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/3.jpg)
