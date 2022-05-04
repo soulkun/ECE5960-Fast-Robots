@@ -57,6 +57,9 @@ I tried turn 89, 88, 87 or 87.5 degrees, sometimes work, sometimes not, so I go 
 
 The green line shows the ground truth and the red line shows the odometry. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
 
+**Comparison of odometry and ground truth.**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/3.jpg)
+**Cannot always execute the exact same shape**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/4.jpg)
+**After couple of minutes**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/5.jpg)
