@@ -66,6 +66,7 @@ The green line shows the ground truth, which is the actual position; and the red
 
 
 ## 3. Closed Loop Control
+To perform a closed-loop obstacle avoidance, I check the ToF sensor reading every time executing the while loop, if the distance is less than 0.5 meters, make a random turn between 0.1 rad and 3.14 rad until the distance is greater than 0.5 meters. After that, go straight at 0.5 m/s for 1 second.
 
 {% highlight python linenos %}
 # Task 2
