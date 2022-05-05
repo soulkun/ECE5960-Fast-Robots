@@ -66,6 +66,7 @@ The green line shows the ground truth, which is the actual position; and the red
 
 
 ## 3. Closed Loop Control
+
 {% highlight python linenos %}
 # Task 2
 import random
