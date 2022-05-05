@@ -57,9 +57,36 @@ I tried turn 89, 88, 87 or 87.5 degrees, sometimes work, sometimes not, so I go 
 
 The green line shows the ground truth, which is the actual position; and the red line shows the odometry, which is the sensor measurement data. Ideally they should be identical. But here in the simulator, due to the noise of the sensor, the odometry is not accurate.
 
-**Comparison of odometry and ground truth.**
+**Comparison of odometry and ground truth. Odometry is not accurate.**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/3.jpg)
 **Cannot always execute the exact same shape**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/4.jpg)
-**After couple of minutes**
+**After a couple of minutes, **
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/5.jpg)
+
+
+## 3. Closed Loop Control
+{% highlight python linenos %}
+# Task 2
+import random
+cmdr.reset_plotter()
+cmdr.reset_sim()
+
+# Loop for pose
+while cmdr.sim_is_running() and cmdr.plotter_is_running():
+    pose, gt_pose = cmdr.get_pose()
+    
+    // If ToF reading is less than half meter, pick a turn between 0.1 rad and 3.14 rad
+    if(cmdr.get_sensor() < 0.5):
+        cmdr.set_vel(0, random.uniform(0.1, 3.14))
+        await asyncio.sleep(1)
+
+    // Then go straight at 0.5 m/s
+    else:
+        cmdr.set_vel(0.5, 0)
+        await asyncio.sleep(1)
+
+    
+    cmdr.plot_odom(pose[0], pose[1])
+    cmdr.plot_gt(gt_pose[0], gt_pose[1])
+{% endhighlight %}
