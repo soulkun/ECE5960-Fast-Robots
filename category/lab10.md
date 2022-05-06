@@ -128,5 +128,17 @@ Initially, I start from 0.5 m/s speed with setpoint = 0.5 m, it runs pretty smoo
 **`setpoint = 0.4, linear velocity = 3.0 m/s, angular velocity = [1, 3.14]`** **[(Video Demo)](https://youtu.be/7DCEvugKU_g)**
 
 ### How close can the virtual robot get to an obstacle without colliding?
+If the linear velocity = 0.5 m/s, then the setpoint could be 0.28 m to avoid collision.
+**`setpoint = 0.28, linear velocity = 0.5 m/s`** **[(Video Demo)](https://youtu.be/vyly6_8itTM)**
+
+If the linear velocity = 1.0 m/s, then the setpoint could be 0.3 m to avoid collision.
+**`setpoint = 0.3, linear velocity = 1 m/s`** **[(Video Demo)](https://youtu.be/QZ0e2s2r4NM)**
+
+Or the linear velocity = 3.0 m/s, then the setpoint could be 0.3 m to avoid **[(Video Demo)](https://youtu.be/7DCEvugKU_g)**
 
 ### Does your obstacle avoidance code always work? If not, what can you do to minimize crashes or (may be) prevent them completely?
+No, not always work. When the robot goes to a corner, or the robot ToF sensor points to a far target, or when the robot faces the wall at an angle, the edge of the robot will hit the object on the map or the wall. See the following picture.
+
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/10/6.jpg)
+
+One method to prevent this is to have another ToF setting on the side or set one at the top-left and the other at the top-right, therefore the robot has a width for scanning.
