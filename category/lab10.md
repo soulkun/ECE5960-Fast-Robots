@@ -66,7 +66,9 @@ The green line shows the ground truth, which is the actual position; and the red
 
 
 ## 3. Closed Loop Control
-To perform a closed-loop obstacle avoidance, I check the ToF sensor reading every time executing the while loop, if the distance is less than 0.5 meters, make a random turn between 0.1 rad and 3.14 rad until the distance is greater than 0.5 meters. After that, go straight at 0.5 m/s for 1 second.
+
+### Design a simple controller in your Jupyter notebook to perform a closed-loop obstacle avoidance.
+To perform a closed-loop obstacle avoidance, I check the ToF sensor reading every time executing the while loop, if the distance is less than 0.5 meters, make a random turn between 1 rad/s and 3.14 rad/s until the distance is greater than 0.5 meters. After that, go forward at 0.5 m/s for 1 second. This is the safe settings.
 
 {% highlight python linenos %}
 # Task 2
@@ -78,9 +80,9 @@ cmdr.reset_sim()
 while cmdr.sim_is_running() and cmdr.plotter_is_running():
     pose, gt_pose = cmdr.get_pose()
     
-    // If ToF reading is less than half meter, pick a turn between 0.1 rad and 3.14 rad
+    // If ToF reading is less than half meter, pick a turn between 0.1/s rad and 3.14 rad/s
     if(cmdr.get_sensor() < 0.5):
-        cmdr.set_vel(0, random.uniform(0.1, 3.14))
+        cmdr.set_vel(0, random.uniform(1, 3.14))
         await asyncio.sleep(1)
 
     // Then go straight at 0.5 m/s
@@ -92,3 +94,39 @@ while cmdr.sim_is_running() and cmdr.plotter_is_running():
     cmdr.plot_odom(pose[0], pose[1])
     cmdr.plot_gt(gt_pose[0], gt_pose[1])
 {% endhighlight %}
+
+**`setpoint = 0.5, linear velocity = 0.5 m/s, angular velocity = [1, 3.14]`** **[(Video Demo)](https://youtu.be/BQ-BUjWXqn8)**
+
+
+### By how much should the virtual robot turn when it is close to an obstacle?
+There is no IMU equipped on the virtual robot, therefore I manually set angular velocity from 1 rad/s to 3.14 rad/s, use **`await asyncio.sleep(1)`** to turn for 1 second, as the video shown above, it works. After a couple tests, I found out the setpoint could be 0.3 meters (previous is 0.5 meters from the wall).
+
+{% highlight python linenos %}
+# Task 2
+import random
+cmdr.reset_plotter()
+cmdr.reset_sim()
+
+# Loop for pose
+while cmdr.sim_is_running() and cmdr.plotter_is_running():
+    
+    
+    if(cmdr.get_sensor() < 0.3):
+        cmdr.set_vel(0, random.uniform(1, 3.14))
+        await asyncio.sleep(1)
+    else:
+        cmdr.set_vel(1, 0)
+        pose, gt_pose = cmdr.get_pose()
+        cmdr.plot_odom(pose[0], pose[1])
+        cmdr.plot_gt(gt_pose[0], gt_pose[1])
+{% endhighlight %}
+
+**`setpoint = 0.3, linear velocity = 1.0 m/s, angular velocity = [1, 3.14]`** **[(Video Demo)](https://youtu.be/VrqTkqzJ4w0)**
+
+### At what linear speed should the virtual robot move to minimize/prevent collisions? Can you make it go faster?
+Initially, I start from 0.5 m/s speed with setpoint = 0.5 m, it runs pretty smooth without hitting the wall. Then I lower the setpoint = 0.3 m, and raise the linear velocity to 1.0 m/s, for most of the time still works, only when the robot gets stuck in the corner. Finally, I reached linear velocity to 3.0 m/s for the fastest I can touch, also with setpoint = 0.4 for safety.
+**`setpoint = 0.4, linear velocity = 3.0 m/s, angular velocity = [1, 3.14]`** **[(Video Demo)](https://youtu.be/7DCEvugKU_g)**
+
+### How close can the virtual robot get to an obstacle without colliding?
+
+### Does your obstacle avoidance code always work? If not, what can you do to minimize crashes or (may be) prevent them completely?
