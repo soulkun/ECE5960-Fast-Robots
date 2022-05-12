@@ -16,6 +16,8 @@ Downloaded the lab11 notebook and copied it into the notebooks directory as show
 This function basically computes the translation from A to B, both before and after the action, every translation takes three arguments, x and y coordinates, and orientation info. Below is the theory in graph.
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/11/2.jpg)
 
+My implementation is based on the following formulas, using the python math library.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/11/3.jpg)
 {% highlight python linenos %}
 def compute_control(cur_pose, prev_pose):
     delta_rot_1 = math.degrees(math.atan2(curr_pose[1] - prev_pose[1]), (curr_pose[0] - prev_pose[0])) - prev_pose[2]
