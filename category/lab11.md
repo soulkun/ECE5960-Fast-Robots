@@ -28,6 +28,23 @@ def compute_control(cur_pose, prev_pose):
 {% endhighlight %}
 
 ### odom_motion_model
+This function is to calculate the probability between the current position and the previous position. There are three parameters, cur_pose, prev_pose and u. The goal is to calculate a u_bar from set of cur_pose and prev_pose. The reason of why need to normalize angle is because the state space for orientation is from -180 deg to +180 deg.
+
+The implementation is based on formulas below.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/11/4.jpg)
+
+{% highlight python linenos %}
+def odom_motion_model(cur_pose, prev_pose, u):
+    p_u = compute_control(cur_pose, prev_pose)   
+    p_rot1 = loc.gaussian(mapper.normalize_angle(p_u[0]-u[0]), 0, loc.odom_rot_sigma)
+    p_trans = loc.gaussian(mapper.normalize_angle(p_u[1]-u[1]), 0, loc.odom_trans_sigma)
+    p_rot2 = loc.gaussian(mapper.normalize_angle(p_u[2]-u[2]), 0, loc.odom_rot_sigma)
+
+    prob = p_rot1 * p_trans * p_rot2
+    
+    return prob
+{% endhighlight %}
+
 ### prediction_step
 ### sensor_model
 ### update_step
