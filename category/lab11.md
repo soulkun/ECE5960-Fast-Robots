@@ -66,4 +66,23 @@ def prediction_step(cur_odom, prev_odom):
 {% endhighlight %}
 
 ### sensor_model
+{% highlight python linenos %}
+def sensor_model(obs):
+    prob = []
+    
+    for i in range(0, mapper.OBS_PER_CELL):
+        prob.append(loc.gaussian(loc.obs_range_data[i], obs[i], loc.sensor_sigma))
+
+    return prob
+{% endhighlight %}
+
 ### update_step
+{% highlight python linenos %}
+def update_step():
+    for curr_x in range(mapper.MAX_CELLS_X):
+        for curr_y in range(mapper.MAX_CELLS_Y):
+            for curr_a in range(mapper.MAX_CELLS_A):
+                loc.bel[curr_x, curr_y, curr_a] = np.prod(sensor_model(mapper.get_views(curr_x, curr_y, curr_a))) * loc.bel_bar[curr_x, curr_y, curr_a]
+                
+    loc.bel /= np.sum(loc.bel)
+{% endhighlight %}
