@@ -5,7 +5,7 @@ title: Lab 11
 
 # Grid Localization using Bayes Filter
 
-## 0. Objective
+## Objective
 The purpose of this lab is to implement grid localization using Bayes filter.
 
 ### Prelab
