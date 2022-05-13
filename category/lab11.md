@@ -67,6 +67,9 @@ def prediction_step(cur_odom, prev_odom):
 {% endhighlight %}
 
 ### sensor_model
+This function calculates the probability of ToF data correctness. Compare the ideal and the actual result, and use the gaussian distribution to correct poses.
+
+Implementation would be pretty straightforward, declare a variable and initialize it as a string object, then loop through 18 positions and append the result.
 {% highlight python linenos %}
 def sensor_model(obs):
     prob = []
