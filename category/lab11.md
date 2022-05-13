@@ -81,6 +81,7 @@ def sensor_model(obs):
 {% endhighlight %}
 
 ### update_step
+The update step is 3 nested loops, walk through all possible current poses and get the belief bar data, use division to normalize it at the end.
 {% highlight python linenos %}
 def update_step():
     for curr_x in range(mapper.MAX_CELLS_X):
