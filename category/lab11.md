@@ -46,6 +46,7 @@ def odom_motion_model(cur_pose, prev_pose, u):
 {% endhighlight %}
 
 ### prediction_step
+Here need six nested loops, 3 of them for sum all current poses, and rest of 3 for previous poses. In theory, the worst case time complexity is **`O(n^6)`**, which is severe. To make a purge optimization, set the belief threshold to **`0.0001`** for the bel, then the best case time complexity will be **`O(n^3)`** ,but the same time complexity for the worst case. At the end, normalize the table by using the division.
 {% highlight python linenos %}
 def prediction_step(cur_odom, prev_odom):
     u = compute_control(cur_odom, prev_odom)
