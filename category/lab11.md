@@ -20,8 +20,8 @@ My implementation is based on the following formulas, using the python math libr
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/11/3.jpg)
 {% highlight python linenos %}
 def compute_control(cur_pose, prev_pose):
-    delta_rot_1 = math.degrees(math.atan2(curr_pose[1] - prev_pose[1]), (curr_pose[0] - prev_pose[0])) - prev_pose[2]
-    delta_trans = math.hypot((curr_pose[0] - prev_pose[0]), (curr_pose[1] - prev_pose[1]))
+    delta_rot_1 = math.degrees(math.atan2((cur_pose[1] - prev_pose[1]), (cur_pose[0] - prev_pose[0]))) - prev_pose[2]
+    delta_trans = math.hypot((cur_pose[0] - prev_pose[0]), (cur_pose[1] - prev_pose[1]))
     delta_rot_2 = cur_pose[2] - prev_pose[2] - delta_rot_1
     
     return delta_rot_1, delta_trans, delta_rot_2
