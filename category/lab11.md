@@ -46,5 +46,24 @@ def odom_motion_model(cur_pose, prev_pose, u):
 {% endhighlight %}
 
 ### prediction_step
+{% highlight python linenos %}
+def prediction_step(cur_odom, prev_odom):
+    u = compute_control(cur_odom, prev_odom)
+    loc.bel_bar = np.zeros((mapper.MAX_CELLS_X, mapper.MAX_CELLS_Y, mapper.MAX_CELLS_A))
+    
+    for prev_x in range(0, mapper.MAX_CELLS_X):
+        for prev_y in range(0, mapper.MAX_CELLS_Y):
+            for prev_a in range(0, mapper.MAX_CELLS_A):
+                if (loc.bel[prev_x, prev_y, prev_a] > 0.0001):
+                    for curr_x in range(0, mapper.MAX_CELLS_X):
+                        for curr_y in range(0, mapper.MAX_CELLS_Y):
+                            for curr_a in range(0, mapper.MAX_CELLS_A):
+                                prev_pose = mapper.from_map(prev_x, prev_y, prev_a)
+                                curr_pose = mapper.from_map(curr_x, curr_y, curr_a)
+                                loc.bel_bar[curr_x, curr_y, curr_a] += (odom_motion_model(curr_pose, prev_pose, u) * loc.bel[prev_x, prev_y, prev_a])
+                                
+    loc.bel_bar /= np.sum(loc.bel_bar)
+{% endhighlight %}
+
 ### sensor_model
 ### update_step
