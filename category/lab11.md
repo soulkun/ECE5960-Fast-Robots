@@ -93,9 +93,9 @@ def update_step():
 {% endhighlight %}
 
 
-**[Without bel_bar (Video Demo)](https://youtu.be/yQHBSPJTcg4)**
+**[Without bel_bar (Click here for Video Demo)](https://youtu.be/yQHBSPJTcg4)**
 
-**[With bel_bar (Video Demo)](https://youtu.be/hJg7BnJqIV4)**
+**[With bel_bar (Click here for Video Demo)](https://youtu.be/hJg7BnJqIV4)**
 
 ### Credits
 Collaborate with Tongqing Zhang (TZ422) and Lu Vincent (YL929).
