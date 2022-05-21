@@ -116,4 +116,8 @@ For each marked poses, below show results, visualize of the results, ground trut
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_3).png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_3)_noB.png)
 
-Ground truth matches belief for all marked poses!
+## Discuss
+Actually, I tried at least eight times and get all ground truth matches belief for all marked poses. I did not save those failed results on my computer, but most of them failed due to unbalanced motor power. What happened is, when starting from 0 degree, I put the robot in the center of the block, since the motor power is unbalanced, it drift on one side, and finally, it cannot back to where it starts after finishing one circle turn. And that leads to bad beliefs. On the other side, I found when the distance is greater than 1500mm, the sensor may not reliable, see the polar result for point (5, 3), the first sample point at 0 degree reading is 2615, this is definitely a wrong reading. Another thing is I am using only the PD control, when turning, it has a strong shaking multiple times in a short period, which may cause the ToF reading inaccurate.
+
+## Note
+This lab collaborates with Tongqing Zhang (tz422), thanks for math theories help and polar plot in Python.
