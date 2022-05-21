@@ -86,7 +86,12 @@ void spin()
 {% endhighlight %}
 
 ### Localization
+
+#### (-3, -2)
 **[(-3, -2)(Click here for Video Demo)](https://youtu.be/Lq4bROWN0xE)**
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/Result_-3_-2.png)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(-3_-2).png)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(-3_-2)_noB.png)
 
 **[(0, 3)(Click here for Video Demo)](https://youtu.be/zE1E5iyn9uk)**
 
