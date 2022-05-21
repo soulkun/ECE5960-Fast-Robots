@@ -93,16 +93,19 @@ void spin()
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(-3_-2).png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(-3_-2)_noB.png)
 
+#### (0, 3)
 **[(0, 3)(Click here for Video Demo)](https://youtu.be/zE1E5iyn9uk)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/Result_0_3.png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(0_3).png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(0_3)_noB.png)
 
+#### (5, -3)
 **[(5, -3)(Click here for Video Demo)](https://youtu.be/YAzNEA4-UOQ)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/Result_5_-3.png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_-3).png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_-3)_noB.png)
 
+#### (5, 3)
 **[(5, 3)(Click here for Video Demo)](https://youtu.be/SFhDOW3IvvI)**
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/Result_5_3.png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_3).png)
