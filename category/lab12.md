@@ -86,6 +86,7 @@ void spin()
 {% endhighlight %}
 
 ## Localization
+For each marked poses, below show results, visualize of the results, ground truth v.s. belief.
 
 ### (-3, -2)
 **[(-3, -2)(Click here for Video Demo)](https://youtu.be/Lq4bROWN0xE)**
@@ -115,3 +116,4 @@ void spin()
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_3).png)
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/12/(5_3)_noB.png)
 
+Ground truth matches belief for all marked poses!
