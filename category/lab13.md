@@ -13,4 +13,7 @@ Initially, I plan to use localization to finish this task. But after some tests,
 
 ![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/13/route.png)
 
+Second, I put the robot at each stop point and target waypoints, and measure the distance to the wall using the front ToF sensor. So that I can change setpoints according to each location and pass this value to the PID controller to make the robot move forward/backward. Below figure shows which point I measured and the distance in millimeters.
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/13/1.png)
+
 **[(Click here for Video Demo)](https://youtu.be/vXTa4QqsIEo)**
