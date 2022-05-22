@@ -11,5 +11,6 @@ Have the robot navigate through a set of waypoints in the given environment as q
 ## Solution
 Initially, I plan to use localization to finish this task. But after some tests, I found it is high coupling. If one of the beliefs is wrong, the rest of the waypoints would have a heavy drift and be unable to reach the final endpoint. Therefore, I switch to feedback control using the PID on ToF sensors from lab 6 to control forward/backward, and using the PID on IMU to control angular speed to make the robot turn in place. Also for turning, I discovered it is very hard to let the robot turn exactly 45 degrees or other degrees except for right angle, due to the frictions between the wheel and the ground, the ideal and the actual won't match perfectly. So, to solve this issue, I choose to turn the right angle to reach every waypoint, in this case, I added some temporary stops just to turn 90 degrees, and my route is shown below in cyan color.
 
-![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/13/route.jpg)
+![](https://github.com/soulkun/ECE5960-Fast-Robots/raw/main/labs/13/route.png)
+
 **[(Click here for Video Demo)](https://youtu.be/vXTa4QqsIEo)**
